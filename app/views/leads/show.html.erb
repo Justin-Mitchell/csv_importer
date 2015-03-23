@@ -1,0 +1,142 @@
+<p id="notice"><%= notice %></p>
+
+<legend>Contact</legend>
+<h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
+<p><strong>Company:</strong><%= @lead.company %></p>
+
+<legend>Address</legend>
+<p><%= @lead.address1 %></p>
+<p><%= @lead.address2 %></p>
+<p><%= @lead.city %>, <%= @lead.state %></p>
+<p><%= @lead.zipcode %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @lead.email %>
+</p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @lead.kind %>
+</p>
+
+
+
+<p>
+  <strong>Source:</strong>
+  <%= @lead.source %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @lead.category %>
+</p>
+
+
+<p>
+  <strong>Phone mobile:</strong>
+  <%= @lead.phone_mobile %>
+</p>
+
+<p>
+  <strong>Phone home:</strong>
+  <%= @lead.phone_home %>
+</p>
+
+<p>
+  <strong>Phone fax:</strong>
+  <%= @lead.phone_fax %>
+</p>
+
+<p>
+  <strong>Phone work:</strong>
+  <%= @lead.phone_work %>
+</p>
+
+<p>
+  <strong>Birthday:</strong>
+  <%= @lead.birthday %>
+</p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @lead.purchase_date %>
+</p>
+
+<p>
+  <strong>Budget:</strong>
+  <%= @lead.budget %>
+</p>
+
+<p>
+  <strong>Purchase price:</strong>
+  <%= @lead.purchase_price %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @lead.rating %>
+</p>
+
+<p>
+  <strong>Home value:</strong>
+  <%= @lead.home_value %>
+</p>
+
+<p>
+  <strong>Entry point:</strong>
+  <%= @lead.entry_point %>
+</p>
+
+<p>
+  <strong>Alt email:</strong>
+  <%= @lead.alt_email %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @lead.status %>
+</p>
+
+<p>
+  <strong>Referred by:</strong>
+  <%= @lead.referred_by %>
+</p>
+
+<p>
+  <strong>Skype:</strong>
+  <%= @lead.skype %>
+</p>
+
+<p>
+  <strong>Facebook:</strong>
+  <%= @lead.facebook %>
+</p>
+
+<p>
+  <strong>Gchat:</strong>
+  <%= @lead.gchat %>
+</p>
+
+<p>
+  <strong>Aol:</strong>
+  <%= @lead.aol %>
+</p>
+
+<p>
+  <strong>Yahoo:</strong>
+  <%= @lead.yahoo %>
+</p>
+
+<p>
+  <strong>Access:</strong>
+  <%= @lead.access %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @lead.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_lead_path(@lead) %> |
+<%= link_to 'Back', leads_path %>

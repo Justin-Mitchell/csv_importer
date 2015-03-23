@@ -1,0 +1,45 @@
+<h1>Leads Database</h1>
+<%= link_to 'New Lead', new_lead_path %>
+
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>name</th>
+      <th>Email</th>
+      <th>Kind</th>
+      <th>Source</th>
+      <th>Category</th>
+      <th>Company</th>
+      <th>Rating</th>
+      <th>Access</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leads.each do |lead| %>
+      <tr>
+        <td><%= lead.status %></td>
+        <td><%= lead.first_name %> <%= lead.last_name %></td>
+        <td><%= lead.email %></td>
+        <td><%= lead.kind %></td>
+        <td><%= lead.source %></td>
+        <td><%= lead.category %></td>
+        <td><%= lead.company %></td>
+        <td><%= lead.rating %></td>
+        <td><%= lead.access %></td>
+        <td><%= link_to 'Show', lead %></td>
+        <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
+        <td><%= link_to 'Destroy', lead, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div>
+<h3>Import a CSV File</h3>
+<%= form_tag import_leads_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import CSV" %>
+<% end %>
+</div>

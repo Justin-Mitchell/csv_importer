@@ -26,9 +26,20 @@ gem 'font-awesome-sass', '4.3.1'
 # Bootstrap 3: https://github.com/twbs/bootstrap-sass
 gem 'bootstrap-sass', '3.3.3'
 
+# SmarterCSV for smarter importing of CSV Files as Array(s) of Hashes, 
+#   suitable for direct processing with Mongoid or ActiveRecord, and 
+#   parallel processing with Resque or Sidekiq.
+gem 'smarter_csv'
+
 group :development, :test do
-  gem 'byebug', '3.5.1'
-  gem 'web-console', '2.1.1'
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'ffaker'
+  gem 'letter_opener'
+  
+  gem 'pry-byebug'
+  # gem 'web-console', '2.1.1'
 
   # Figaro: https://github.com/laserlemon/figaro
   gem 'figaro', '1.1.0'
