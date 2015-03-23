@@ -9,7 +9,8 @@ class String
   def to_underscore
     string = self.clean
     string = ActiveSupport::Inflector.underscore(string)
-    string.gsub!(" ", '_')
+    string = string.gsub(" ", '_')
+    return string
   end
   
   # Removes invalid byte codes from string
