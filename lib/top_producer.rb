@@ -8,7 +8,7 @@ class TopProducer
           "Unsubscribed", "Web Address", "Other Email_Web Type", "Other Email_Web Addr", "Other Email_Web Desc", "Home Phone", 
           "Home Phone Ext", "Home Ph Desc", "Bus Phone", "Bus Phone Ext", "Bus Ph Desc", "Other Phone", "Other Phone Ext", 
           "Other Ph Desc", 'Other Ph Nums Title', "Other Phone Nums", 'Other Phone Nums Ext', 'Other Ph Nums Desc', 'Mobile Phone', 
-          'Mobile Phone Ext', 'Mobile Ph Desc', 'Pager Number', 'Pager Ext', 'Pager Desc', 'Fax Number', 'Fax Ext', 'Fax Desc', 'Urgency'
+          'Mobile Phone Ext', 'Mobile Ph Desc', 'Pager Number', 'Pager Ext', 'Pager Desc', 'Fax Number', 'Fax Ext', 'Fax Desc', 'Urgency',
           'Contact Note Date', 'Contact Notes', 'Hidden contacts', 'Secondary FirstName', "Secondary LastName", 'Secondary Initial', 
           'Secondary NickName', 'Secondary Jr_Sr', 'Secondary Mr_Mrs', 'Secondary Title', 'Secondary Designation', 'Secondary Gender', 
           'Secondary Birthday', 'FF FirstName', 'FF LastName', 'FF Birthday', 'FF Relation', 'FF Resident', 'Asst FirstName', 'Asst LastName', 

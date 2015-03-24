@@ -8,6 +8,7 @@ class Lead < ActiveRecord::Base
     # Class Methods
     class << self
         def import(file)
+          binding.pry
             SmarterCSV.process(file.path, key_mapping: true) do |row|
                 lead_hash = TopProducer.build_hash(row[0])
                 lead = Lead.where(:email => lead_hash[:email])

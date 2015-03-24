@@ -31,6 +31,10 @@ gem 'bootstrap-sass', '3.3.3'
 #   parallel processing with Resque or Sidekiq.
 gem 'smarter_csv'
 
+# Sidekiq and Redis for Background Job Processing
+gem 'sidekiq'
+gem 'sinatra', require: false
+
 group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'

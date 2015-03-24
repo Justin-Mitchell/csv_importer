@@ -35,7 +35,7 @@ class Fusion
          phone_work: record[],
          birthday: record[].to_date,
          purchase_date: record[].to_date,
-         budget: record[:].to_f,
+         budget: record[].to_f,
          rating: nil,
          home_value: record[],
          entry_point: "CSV Import (Fusion)",
