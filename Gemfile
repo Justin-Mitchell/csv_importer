@@ -44,12 +44,12 @@ gem 'carrierwave_direct'
 
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'ffaker'
   gem 'letter_opener'
-  
   gem 'pry-byebug'
   # gem 'web-console', '2.1.1'
 

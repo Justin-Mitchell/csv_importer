@@ -93,6 +93,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    dotenv (2.0.0)
+    dotenv-rails (2.0.0)
+      dotenv (= 2.0.0)
     erubis (2.7.0)
     excon (0.44.4)
     execjs (2.4.0)
@@ -331,6 +334,7 @@ DEPENDENCIES
   carrierwave_direct
   coffee-rails (= 4.1.0)
   devise (= 3.4.1)
+  dotenv-rails
   ffaker
   figaro (= 1.1.0)
   fog
