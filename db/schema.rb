@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321184323) do
+ActiveRecord::Schema.define(version: 20150325163140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "csv_imports", force: :cascade do |t|
+    t.string   "source"
+    t.boolean  "is_temp"
+    t.string   "lead_type"
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "csv"
+    t.integer  "total_records"
+    t.integer  "new_records_count"
+    t.integer  "updated_records_count"
+    t.boolean  "csv_processed",         default: false
+    t.string   "key"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false

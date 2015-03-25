@@ -1,4 +1,4 @@
-class LeadsController < ApplicationController
+class Admin::LeadsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lead, only: [:show, :edit, :update, :destroy]
 

@@ -3,7 +3,7 @@
   <div class='col-md-8'>
     <h3>Users <small><ins>Admin</ins></small></h3>
   </div>
-  <div class='col-md-4 text-right' style='vertical-align:bottom;'>
+  <div class='col-md-4 text-right' style='top:25px;'>
     <%= link_to "Back to Admin", admin_root_path %> | <%= link_to 'Bulk Import', '#', onclick: "$('#file-uploader').toggle()" %>
   </div>
 </div>
@@ -38,7 +38,7 @@
 
   <tr>
     <td><%= user.id %></td>
-    <td><%= image_tag user.avatar_url(:thumb).to_s %>
+    <td><%= image_tag user.avatar_url(:small).to_s %>
     <td><%= link_to user.email, admin_user_path(user) %></td>
     <td><%= user.admin? ? "<b>yes</b>".html_safe : "no" %></td>
     <td><%= user.locked? ? "<b>yes</b>".html_safe : "no" %></td>

@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   
   # Relations
+  has_many :csv_imports
   has_many :posts
   has_many :leads
 

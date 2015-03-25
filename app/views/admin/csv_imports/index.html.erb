@@ -1,0 +1,59 @@
+<% title("CSV Imports") %>
+<div class='row' style='border-bottom: 3px solid #555555;'>
+  <div class='col-md-8'>
+    <h3>CSV Imports</h3>
+  </div>
+  <div class='col-md-4 text-right' style='top:25px;'>
+    <%= link_to 'New Import', '#', onclick: "$('#file-uploader').toggle()" %>
+  </div>
+</div>
+<div id='file-uploader' class='row' style='display:none;background: #EDE36A;padding: 5px'>
+    <div class='col-md-6'>
+      <p style='padding: 10px'>
+        We know how important importing contacts is to your business. That’s why we’ve made it quick and easy to import contacts into Agent Formula's CRM, so you can spend time growing your business—not entering contact information.
+      </p>
+    </div>
+    <div class='col-md-6 text-right' style='padding:15px'>
+      <%= direct_upload_form_for @uploader do |f| %>
+      <div class='form-group'>
+        <label for='file' class='sr-only'></label>
+        <%= f.file_field :csv, class: 'form-control' %>
+      </div>
+      <div class='form-group'>
+        <%= f.submit "Upload CSV", class: 'btn btn-info' %>
+      </div>
+      <% end %>
+    </div>
+</div>
+
+<table class='table table-bordered table-striped' style='margin-top: 10px;'>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Name</th>
+      <th>Csv File Status</th>
+      <th>Total Records</th>
+      <th>New Records</th>
+      <th>Updated Records</th>
+      <th>Failed Records</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @csv_imports.each do |csv_import| %>
+      <tr>
+        <td><%= csv_import.source %></td>
+        <td><%= csv_import.name %></td>
+        <td><%= csv_import.csv_processed ? "Complete" : "<i class='fa fa-paperclip'></i> Processing...".html_safe %></td>
+        <td><%= csv_import.total_records %></td>
+        <td><%= csv_import.new_records_count %></td>
+        <td><%= csv_import.updated_records_count %></td>
+        <td><%=  %>0</td>
+        <td><%= link_to 'Show', admin_csv_import_path(csv_import) %></td>
+        <td><%= link_to 'Edit', edit_admin_csv_import_path(csv_import) %></td>
+        <td><%= link_to 'Destroy', admin_csv_import_path(csv_import), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

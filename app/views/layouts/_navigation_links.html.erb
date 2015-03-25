@@ -1,16 +1,5 @@
-<li><%= link_to "Leads", leads_path %></li>
-<li><%= link_to "Posts", posts_path %></li>
-<li><%= link_to "Contact", contact_path %></li>
-<% if !user_signed_in? %>
-<li><%= link_to "Sign in", new_user_session_path %></li>
+<li><%= link_to "Leads", admin_leads_path %></li>
+<li><%= link_to "CSV Imports", admin_csv_imports_path %></li>
+<li><%= link_to "BlogPosts", posts_path %></li>
+<li><%= link_to "Contact US", contact_path %></li>
 
-<% else %>
-<li><%= link_to "Protected Page", inside_path %></li>
-
-
-<% if current_user.admin? %>
-<li><%= link_to "Admin", admin_root_path %></li>
-<% end %>
-
-<li><%= link_to "Sign out", destroy_user_session_path, data:{method: :delete} %></li>
-<% end %>

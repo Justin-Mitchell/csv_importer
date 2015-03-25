@@ -25,6 +25,9 @@ CsvImporter::Application.routes.draw do
     resources :leads do
       collection { post :import }
     end
+    resources :csv_imports do
+      collection { post :import }
+    end
   end
   
   resources :leads do

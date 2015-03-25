@@ -1,0 +1,32 @@
+<%= form_for([:admin, @csv_import], html: { :multipart => true }) do |f| %>
+  <% if @csv_import.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@csv_import.errors.count, "error") %> prohibited this csv_import from being saved:</h2>
+
+      <ul>
+      <% @csv_import.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label "Attached File Name:" %> <%= @csv_import.file_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :source %><br>
+    <%= f.select(:source, options_for_select(CsvImport.source_options_for_select)) %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.select(:lead_type, options_for_select(CsvImport.lead_type_options_for_select)) %>
+  </div>
+  
+  <%= f.hidden_field :key, value: params[:key] %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @csv_import.name %>
+</p>
+
+<p>
+  <strong>Uploaded By:</strong>
+  <%= @csv_import.user.email %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @csv_import.source %>
+</p>
+
+<p>
+  <strong>Total Records:</strong>
+  <%= @csv_import.total_records %>
+</p>
+
+<% if @csv_import.csv_processed %>
+  <p>
+    <strong>New Records:</strong>
+    <%= @csv_import.new_records_count %>
+  </p>
+  <p>
+    <strong>Updated Records:</strong>
+    <%= @csv_import.updated_records_count %>
+  </p>
+<% else %>
+  <p>
+    <strong>File Status:</strong>
+    Processing...
+  </p>
+<% end %>
+
+<p>
+  <strong>Csv:</strong>
+  <% if @csv_import.csv %>
+    <label class='label label-info'>
+      <i class='fa fa-paperclip'></i>
+      <%= @csv_import.name %>
+    </label>
+  <% else %>
+    No File Found
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_admin_csv_import_path(@csv_import) %> |
+<%= link_to 'Back', admin_csv_imports_path %>
