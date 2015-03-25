@@ -1,0 +1,5 @@
+<% unless current_user.nil? %>
+<ul class='nav navbar-nav navbar-right'>
+  <li><%= link_to "Welcome #{current_user.email}", admin_root_path %></li>
+</ul>
+<% end %>

@@ -35,6 +35,14 @@ gem 'smarter_csv'
 gem 'sidekiq'
 gem 'sinatra', require: false
 
+# AWS / Carrierwave / Rmagick
+gem 'aws-sdk'
+gem 'rmagick'
+gem 'fog'
+gem 'carrierwave'
+gem 'carrierwave_direct'
+
+
 group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'

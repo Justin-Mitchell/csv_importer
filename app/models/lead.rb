@@ -7,8 +7,18 @@ class Lead < ActiveRecord::Base
   
     # Class Methods
     class << self
+      
+      def search_and_order(search, page_number)
+        if search
+          where("email LIKE ?", "%#{search.downcase}%").order(
+          last_name: :desc, email: :asc
+          ).page page_number
+        else
+          order(last_name: :desc, email: :asc).page page_number
+        end
+      end
+      
         def import(file)
-          binding.pry
             SmarterCSV.process(file.path, key_mapping: true) do |row|
                 lead_hash = TopProducer.build_hash(row[0])
                 lead = Lead.where(:email => lead_hash[:email])

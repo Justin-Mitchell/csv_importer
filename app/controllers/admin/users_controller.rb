@@ -1,11 +1,6 @@
 class Admin::UsersController < Admin::BaseController
 
-  before_action :set_user, only: [
-    :show,
-    :edit,
-    :update,
-    :destroy
-  ]
+  before_action :set_user, only: [:show,:edit,:update,:destroy]
 
   
   def index
@@ -23,7 +18,12 @@ class Admin::UsersController < Admin::BaseController
     old_email = @user.email
     new_params = user_params.dup
     new_params[:email] = new_params[:email].strip
-
+    
+    if new_params[:remove_avatar] == "1"
+      @user.remove_avatar!
+    else
+      @user.avatar = new_params[:avatar]
+    end
     @user.email = new_params[:email]
     @user.password = new_params[:password] if new_params[:password].strip.length > 0
     @user.password_confirmation = new_params[:password_confirmation] if new_params[:password_confirmation].strip.length > 0
@@ -54,13 +54,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def user_params
-    params.require(:user).permit(
-    :email,
-    :password,
-    :password_confirmation,
-    :admin,
-    :locked
-    )
+    params.require(:user).permit(:email,:password,:password_confirmation,:admin,:locked,:avatar,:remote_image_url,:remove_avatar)
   end
 
 end
