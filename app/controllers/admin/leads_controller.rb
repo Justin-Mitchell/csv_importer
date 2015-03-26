@@ -6,6 +6,8 @@ class Admin::LeadsController < ApplicationController
   # GET /leads.json
   def index
     @leads = Lead.search_and_order(params[:search], params[:page])
+    @uploader = current_user.csv_imports.build.csv
+    @uploader.success_action_redirect = new_admin_csv_import_url
   end
 
   # GET /leads/1
@@ -29,7 +31,7 @@ class Admin::LeadsController < ApplicationController
 
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to @lead, notice: 'Lead was successfully created.' }
+        format.html { redirect_to admin_lead_path(@lead), notice: 'Lead was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }

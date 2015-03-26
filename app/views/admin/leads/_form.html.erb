@@ -1,4 +1,4 @@
-<%= form_for(@lead) do |f| %>
+<%= form_for(@lead, url: admin_leads_path(@lead)) do |f| %>
   <% if @lead.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lead.errors.count, "error") %> prohibited this lead from being saved:</h2>

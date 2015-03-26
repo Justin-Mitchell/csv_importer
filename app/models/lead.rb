@@ -4,6 +4,8 @@ class Lead < ActiveRecord::Base
   
     # Associations  
     belongs_to :user
+    
+    validates :first_name, :presence => true
   
     # Class Methods
     class << self

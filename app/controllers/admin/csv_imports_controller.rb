@@ -12,6 +12,7 @@ class Admin::CsvImportsController < ApplicationController
   # GET /csv_imports/1
   # GET /csv_imports/1.json
   def show
+    raise
   end
 
   # GET /csv_imports/new
@@ -27,8 +28,9 @@ class Admin::CsvImportsController < ApplicationController
   # POST /csv_imports.json
   def create
     @csv_import = current_user.csv_imports.build(csv_import_params)
-    data = CSV.parse(open(params[:csv_import][:csv].path).read)
-    @csv_import.total_records = data.size - 1
+    # Write callback function to process file after upload is complete.
+    #data = CSV.parse(open(params[:csv_import][:csv].path).read)
+    #@csv_import.total_records = data.size - 1
     @csv_import.name = "#{csv_import_params[:source]}-#{csv_import_params[:lead_type]}-#{Time.now.strftime("%B-%d-%Y").downcase}"
 
     respond_to do |format|
