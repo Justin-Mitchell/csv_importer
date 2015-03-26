@@ -1,4 +1,5 @@
 class Admin::CsvImportsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_csv_import, only: [:show, :edit, :update, :destroy]
 
   # GET /csv_imports
