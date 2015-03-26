@@ -29,6 +29,7 @@ class Admin::CsvImportsController < ApplicationController
   def create
     @csv_import = current_user.csv_imports.build(csv_import_params)
     # Write callback function to process file after upload is complete.
+    # https://gist.github.com/TSMMark/6642751
     #data = CSV.parse(open(params[:csv_import][:csv].path).read)
     #@csv_import.total_records = data.size - 1
     @csv_import.name = "#{csv_import_params[:source]}-#{csv_import_params[:lead_type]}-#{Time.now.strftime("%B-%d-%Y").downcase}"
