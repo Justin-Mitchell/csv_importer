@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<div class='text-right'>
+  <p>
+    <strong>Current Time:</strong>
+    <%= Time.now.strftime("%I:%m%p")%>
+  </p>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @csv_import.name %>
@@ -7,7 +14,7 @@
 
 <p>
   <strong>Uploaded By:</strong>
-  <%= @csv_import.user.email %>
+  <%= @csv_import.user.email %> at <em><%= @csv_import.created_at.strftime("%I:%m%p on %b %d, %Y")%></em>
 </p>
 
 <p>
@@ -46,6 +53,10 @@
   <% else %>
     No File Found
   <% end %>
+</p>
+<p>
+  <strong>File Path:</strong>
+  <%= @csv_import.csv.file.path %>
 </p>
 
 <%= link_to 'Edit', edit_admin_csv_import_path(@csv_import) %> |

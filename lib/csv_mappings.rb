@@ -1,4 +1,4 @@
-module CsvImportsHelper
+module CsvMappings
   
   def map_it(record, possibles)
     colname = record.keys & possibles
@@ -14,7 +14,7 @@ module CsvImportsHelper
     [:email, :email_address, :email_1, :primary_email, :email_address_1]
   end
   
-  def alt_email
+  def alt_email_map
     [:alt_email, :email_2, :secondary_email, :email_address_2, :other_email]
   end
   
@@ -117,5 +117,4 @@ module CsvImportsHelper
   def yahoo_map
     [:yahoo]
   end
-  
 end

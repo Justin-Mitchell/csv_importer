@@ -3,6 +3,8 @@ class CsvImport < ActiveRecord::Base
   # Carrierwave
   mount_uploader :csv, CsvUploader
   
+  after_create :process
+  
   class << self
     def source_options_for_select
       [
@@ -29,7 +31,39 @@ class CsvImport < ActiveRecord::Base
     end
   end
   
-  def file_name
-    File.basename(csv.path || csv.filename) if csv
+  def process
+    file = SmarterCSV.process(self.csv.file.path, key_mapping: true)
+    self.total_records = file.size
+    file.each do |row|
+      lead_hash = self.build_record(row, import.lead_type)
+      lead = Lead.where(:email => lead_hash[:email])
+      if lead.size == 1
+        lead.first.update_attributes(lead_hash)
+        import.updated_records_count += 1
+      else
+        lead = import.user.leads.build(lead_hash)
+        if lead.valid?
+          lead.save
+          import.new_records_count += 1
+        else
+          lead.errors.each do |err|
+          end
+        end
+      end
+    end
+    self.save!
   end
+  
+  def build_record(record, type)
+    case self.source
+    when "top_producer"
+      TopProducer.build_hash(record, type)
+    when "fusion"
+      Fusion.build_hash(record, type)
+    when "outlook"
+      row[0]
+    else
+    end
+  end
+
 end

@@ -1,4 +1,5 @@
 class Fusion
+  require 'csv_imports_helper'
    
     def self.field_names
        [
@@ -13,26 +14,27 @@ class Fusion
        ] 
     end
     
-    def self.build_hash(record)
+    def self.build_hash(record, type)
+      include CsvImportsHelper
        address_line_1 = "#{record[:house_number]} #{record[:direction_prefix]} #{record[:street]} #{record[:street_designator]} #{record[:direction_suffix]}"
        address_line_2 = (record[:bldg_floor].blank? ? "#{record[:suite_no]}" : "Bldg #{record[:bldg_floor]} ##{record[:suite_no]}") unless record[:suite_no].blank?
+       raise first_name_map.inspect
        hash = {
-         first_name: record[],
-         last_name: record[],
-         email: record[],
-         kind: record[],
+         first_name: map_it(record, first_name_map),
+         last_name: map_it(record, last_name_map),
+         email: map_it(record, email_map),
+         kind: map_it(record, kind_map),
          address1: address_line_1.blank? ? nil : address_line_1.split(' ').join(' '),
          address2: address_line_2.blank? ? nil : address_line_2.split(' ').join(' '),
-         city: record[],
-         state: record[],
-         zipcode: record[],
-         source: record[],
-         category: record[],
-         company: record[],
-         phone_mobile: record[],
-         phone_home: record[],
+         city: record[:city_1],
+         state: record[:state_1],
+         zipcode: record[:zip_1],
+         source: record[:source],
+         category: record[:status],
+         phone_mobile: record[:cell_phone],
+         phone_home: record[:home_phone],
          phone_fax: record[],
-         phone_work: record[],
+         phone_work: record[:work_phone],
          birthday: record[].to_date,
          purchase_date: record[].to_date,
          budget: record[].to_f,

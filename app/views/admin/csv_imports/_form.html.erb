@@ -1,8 +1,8 @@
-<%= form_for([:admin, @csv_import], html: { :multipart => true }) do |f| %>
+<div class='well'>
+<%= form_for([:admin, @csv_import], html: { :multipart => true, class: 'form-horizontal' }) do |f| %>
   <% if @csv_import.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@csv_import.errors.count, "error") %> prohibited this csv_import from being saved:</h2>
-
       <ul>
       <% @csv_import.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,23 +10,40 @@
       </ul>
     </div>
   <% end %>
-  
-  <div class="field">
-    <%= f.label "Attached File Name:" %> <%= @csv_import.file_name %>
+  <div class='row'>
+    <div class='form-group'>
+      <label for="source" class='col-sm-2 control-label'>Source File Type</label>
+      <div class='col-sm-6'>
+        <%= f.select(:source, options_for_select(CsvImport.source_options_for_select), {}, { class: 'form-control' }) %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :source %><br>
-    <%= f.select(:source, options_for_select(CsvImport.source_options_for_select)) %>
+  <div class='row'>
+    <div class='form-group'>
+      <label for="lead_type" class='col-sm-2 control-label'>What Type Of Leads Are These?</label>
+      <div class='col-sm-6'>
+        <%= f.select(:lead_type, options_for_select(CsvImport.lead_type_options_for_select), {}, { class: 'form-control' }) %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.select(:lead_type, options_for_select(CsvImport.lead_type_options_for_select)) %>
-  </div>
-  
-  <%= f.hidden_field :key, value: params[:key] %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class='row'>
+    <div class='form-group'>
+      <label for="csv" class='col-sm-2 control-label'>Attach CSV File</label>
+      <div class='col-sm-10'>
+        <%= f.file_field :csv %>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='form-group'>
+      <div class='col-sm-offset-2 col-sm-6'>
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    </div>
   </div>
 <% end %>
+</div>
+

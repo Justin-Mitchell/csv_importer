@@ -6,8 +6,6 @@ class Admin::LeadsController < ApplicationController
   # GET /leads.json
   def index
     @leads = Lead.search_and_order(params[:search], params[:page])
-    @uploader = current_user.csv_imports.build.csv
-    @uploader.success_action_redirect = new_admin_csv_import_url
   end
 
   # GET /leads/1

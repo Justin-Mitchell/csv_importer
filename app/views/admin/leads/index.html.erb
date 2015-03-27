@@ -4,26 +4,8 @@
     <h3>Leads Database</h3>
   </div>
   <div class='col-md-4 text-right' style='top:25px;'>
-    <%= link_to 'Create Lead', new_admin_lead_path %> | <%= link_to 'Bulk Import', '#', onclick: "$('#file-uploader').toggle()" %>
+    <%= link_to 'Create Lead', new_admin_lead_path %> | <%= link_to 'Import Leads via CSV File', '#', onclick: "$('#file-uploader').toggle()" %>
   </div>
-</div>
-<div id='file-uploader' class='row' style='display:none;background: #EDE36A;padding: 5px'>
-    <div class='col-md-6'>
-      <p style='padding: 10px'>
-        We know how important importing contacts is to your business. That’s why we’ve made it quick and easy to import contacts into Agent Formula's CRM, so you can spend time growing your business—not entering contact information.
-      </p>
-    </div>
-    <div class='col-md-6 text-right' style='padding:15px'>
-      <%= direct_upload_form_for @uploader do |f| %>
-      <div class='form-group'>
-        <label for='file' class='sr-only'></label>
-        <%= f.file_field :csv, class: 'form-control' %>
-      </div>
-      <div class='form-group'>
-        <%= f.submit "Upload CSV", class: 'btn btn-info' %>
-      </div>
-      <% end %>
-    </div>
 </div>
 
 <div class="text-center">

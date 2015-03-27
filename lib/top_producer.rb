@@ -1,4 +1,5 @@
 class TopProducer
+  require 'csv_imports_helper'
    
    def self.field_names
       [
@@ -40,6 +41,7 @@ class TopProducer
    end 
    
    def self.build_hash(record)
+     include CsvImportsHelper
      # Top Producer Values
      address_line_1 = "#{record[:house_number]} #{record[:direction_prefix]} #{record[:street]} #{record[:street_designator]} #{record[:direction_suffix]}"
      address_line_2 = (record[:bldg_floor].blank? ? "#{record[:suite_no]}" : "Bldg #{record[:bldg_floor]} ##{record[:suite_no]}") unless record[:suite_no].blank?

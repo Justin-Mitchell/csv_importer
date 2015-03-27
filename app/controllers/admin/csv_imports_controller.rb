@@ -6,8 +6,6 @@ class Admin::CsvImportsController < ApplicationController
   # GET /csv_imports.json
   def index
     @csv_imports = current_user.csv_imports.all
-    @uploader = current_user.csv_imports.build.csv
-    @uploader.success_action_redirect = new_admin_csv_import_url
   end
 
   # GET /csv_imports/1
@@ -32,7 +30,7 @@ class Admin::CsvImportsController < ApplicationController
     #@csv_import.total_records = data.size - 1
     @csv_import.name = "#{csv_import_params[:source]}-#{csv_import_params[:lead_type]}-#{Time.now.strftime("%B-%d-%Y").downcase}"
     @csv_import.is_temp = false
-
+    
     respond_to do |format|
       if @csv_import.save
         format.html { redirect_to admin_csv_import_path(@csv_import), notice: 'Csv import was successfully created.' }
