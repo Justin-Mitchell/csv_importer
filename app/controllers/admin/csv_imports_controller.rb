@@ -31,6 +31,7 @@ class Admin::CsvImportsController < ApplicationController
     #data = CSV.parse(open(params[:csv_import][:csv].path).read)
     #@csv_import.total_records = data.size - 1
     @csv_import.name = "#{csv_import_params[:source]}-#{csv_import_params[:lead_type]}-#{Time.now.strftime("%B-%d-%Y").downcase}"
+    @csv_import.is_temp = false
 
     respond_to do |format|
       if @csv_import.save

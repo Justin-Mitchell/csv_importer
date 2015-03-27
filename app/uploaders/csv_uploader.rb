@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class CsvUploader < CarrierWave::Uploader::Base
-  include CarrierWave::CSVProcessor
+  # include CarrierWave::CSVProcessor
   include CarrierWaveDirect::Uploader
 
   # Include RMagick or MiniMagick support:
@@ -10,7 +10,7 @@ class CsvUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
-  # storage :fog
+  storage :fog
   
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -30,17 +30,21 @@ class CsvUploader < CarrierWave::Uploader::Base
   # process :scale => [200, 300]
   #
   # Hand Rolled CSV Processor for Agentformula
-  process :process_csv
+  # process :process_csv
   
   # def scale(width, height)
   #   # do something
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
-  # end
-
+  version :local do
+    storage :file
+    
+    def store_dir 
+      "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
+    
+  end
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list

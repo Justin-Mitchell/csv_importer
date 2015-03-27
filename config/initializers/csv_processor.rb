@@ -3,6 +3,7 @@ module CarrierWave
     
     def process_csv
       #... Do Stuff Here
+      binding.pry
     end
   end
 end
