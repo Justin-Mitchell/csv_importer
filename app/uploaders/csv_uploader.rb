@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class CsvUploader < CarrierWave::Uploader::Base
+  include CarrierWave::CSVProcessor
   include CarrierWaveDirect::Uploader
 
   # Include RMagick or MiniMagick support:
@@ -28,6 +29,9 @@ class CsvUploader < CarrierWave::Uploader::Base
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   #
+  # Hand Rolled CSV Processor for Agentformula
+  process :process_csv
+  
   # def scale(width, height)
   #   # do something
   # end
