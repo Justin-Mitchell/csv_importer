@@ -32,19 +32,19 @@ class CsvMap
     end
     
     def email_map
-      [:email, :email_address, :email_1, :primary_email, :email_address_1, :e_mail_address, :e_mail, :e_mail_address_1, :e_mail_1_type]
+      [:email, :email_address, :email_1, :primary_email, :email_address_1, :e_mail_address, :e_mail, :e_mail_address_1, :e_mail_1_value, :"e-mail_1_-_value"]
     end
   
     def alt_email_map
-      [:alt_email, :email_2, :secondary_email, :email_address_2, :other_email, :e_mail_2_address, :email_2_address]
+      [:alt_email, :email_2, :secondary_email, :email_address_2, :other_email, :e_mail_2_address, :email_2_address, :alt_email_1]
     end
   
     def first_name_map
-      [:primary_first_name, :primary_firstname, :first_name, :firstname, :fname]
+      [:primary_first_name, :primary_firstname, :first_name, :firstname, :fname, :first, :given_name]
     end
   
     def last_name_map
-      [:primary_last_name, :primary_lastname, :last_name, :lastname, :lname]
+      [:primary_last_name, :primary_lastname, :last_name, :lastname, :lname, :last, :family_name]
     end
   
     def kind_map
@@ -52,7 +52,7 @@ class CsvMap
     end
   
     def address1_map
-      [:address, :street_address, :address1, :address_1, :mailing_address, :home_street]
+      [:address, :street_address, :address1, :address_1, :mailing_address, :home_street, :home_address]
     end
   
     def address2_map
@@ -68,7 +68,7 @@ class CsvMap
     end
   
     def zipcode_map
-      [:postal_code, :zip, :zip_1, :zipcode, :zipcode_1, :postal_code_1, :postalcode, :postalcode_1, :primary_zipcode, :home_postal_code]
+      [:postal_code, :zip, :zip_1, :zipcode, :zipcode_1, :postal_code_1, :postalcode, :postalcode_1, :primary_zipcode, :home_postal_code, :home_zip]
     end
   
     def source_map
@@ -84,7 +84,7 @@ class CsvMap
     end
     
     def title_map
-      [:title, :job_title, :position]
+      [:title, :job_title, :position, :occupation]
     end
     
     def comments_map
@@ -92,11 +92,11 @@ class CsvMap
     end
   
     def phone_mobile_map
-      [:mobile_phone, :cell_phone, :mobile, :cell, :phone_mobile, :phone3, :phone_3, :primary_phone, :phone]
+      [:mobile_phone, :cell_phone, :mobile, :cell, :phone_mobile, :phone3, :phone_3, :primary_phone, :phone, :"phone_1_-_value"]
     end
   
     def phone_home_map
-      [:home_phone, :phone_home, :phone1, :phone_1]
+      [:home_phone, :phone_home, :phone1, :phone_1, :home]
     end
   
     def phone_fax_map
@@ -104,7 +104,7 @@ class CsvMap
     end
   
     def phone_work_map
-      [:bus_phone, :work_phone, :business_phone, :phone_work, :phone_business, :office_phone, :phone_office, :phone2, :phone_2]
+      [:bus_phone, :work_phone, :business_phone, :phone_work, :phone_business, :office_phone, :phone_office, :phone2, :phone_2, :work]
     end
   
     def birthday_map

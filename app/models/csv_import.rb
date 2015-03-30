@@ -17,6 +17,8 @@ class CsvImport < ActiveRecord::Base
         ['Top Producer', 'top_producer'],
         ['MLS Fusion', 'fusion'],
         ['Outlook', 'outlook'],
+        ['Google', 'google'],
+        ['Remax', 'remax'],
         ['Other', 'other']
       ]
     end
@@ -60,6 +62,9 @@ class CsvImport < ActiveRecord::Base
       Fusion.build_hash(record, type)
     when "outlook"
       row[0]
+    when "google"
+      Fusion.build_hash(record, type)
+      #GoogleCsv.new(record, type)
     else
     end
   end
@@ -67,7 +72,6 @@ class CsvImport < ActiveRecord::Base
   def process
     @data = load_csv_file_data
     set_total_records_count(@data.size)
-    
     @data.each do |row|
       lead_hash = build_record(row, lead_type)
       lead = Lead.find_by(:email => lead_hash[:email], :first_name => lead_hash[:first_name], :last_name => lead_hash[:last_name])

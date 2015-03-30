@@ -34,6 +34,7 @@ class CreateLeads < ActiveRecord::Migration
       t.string :aol
       t.string :yahoo
       t.string :access
+      t.text   :comments
       t.integer :user_id
 
       t.timestamps null: false

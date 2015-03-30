@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20150329172002) do
     t.string   "aol"
     t.string   "yahoo"
     t.string   "access"
+    t.text     "comments"
     t.integer  "user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
