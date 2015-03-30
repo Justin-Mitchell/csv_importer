@@ -51,8 +51,12 @@ group :development, :test do
   gem 'ffaker'
   gem 'letter_opener'
   gem 'pry-byebug'
-  # gem 'web-console', '2.1.1'
+  gem 'web-console', '2.1.1'
 
+  # For Seed Data
+  # Faker: http://www.rubydoc.info/github/EmmanuelOga/ffaker
+  gem 'ffaker'
+  
   # Figaro: https://github.com/laserlemon/figaro
   gem 'figaro', '1.1.0'
 

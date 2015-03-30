@@ -1,10 +1,15 @@
 class CsvImport < ActiveRecord::Base
-  belongs_to :user
-  # Carrierwave
+  # Requirements
   mount_uploader :csv, CsvUploader
   
+  # Relations
+  belongs_to :user
+  has_many :import_errors
+
+  # Validations
   after_create :process
   
+  # ClassMethods
   class << self
     def source_options_for_select
       [
@@ -31,27 +36,20 @@ class CsvImport < ActiveRecord::Base
     end
   end
   
-  def process
-    file = SmarterCSV.process(self.csv.file.path, key_mapping: true)
-    self.total_records = file.size
-    file.each do |row|
-      lead_hash = self.build_record(row, import.lead_type)
-      lead = Lead.where(:email => lead_hash[:email])
-      if lead.size == 1
-        lead.first.update_attributes(lead_hash)
-        import.updated_records_count += 1
-      else
-        lead = import.user.leads.build(lead_hash)
-        if lead.valid?
-          lead.save
-          import.new_records_count += 1
-        else
-          lead.errors.each do |err|
-          end
-        end
-      end
-    end
-    self.save!
+  # Instance Methods
+  def load_csv_file_data
+    SmarterCSV.process(self.csv.file.path, key_mapping: true) 
+  rescue CSV::MalformedCSVError
+    Rails.logger.error { "Error while loading csv file for: #{self.csv.file.original_filename}, #{e.message} #{e.backtrace.join("\n")}" }
+    flash[:error] = "The uploaded file, #{self.csv.file.original_filename}, was malformed or not in CSV format." 
+    return false
+  end
+  
+  def set_total_records_count(size)
+    update_attribute(:total_records, size) if size && size.is_a?(Integer)
+  rescue => e
+    Rails.logger.error { "Error while setting total records count for: #{name}, #{e.message} #{e.backtrace.join("\n")}" }
+    nil
   end
   
   def build_record(record, type)
@@ -64,6 +62,33 @@ class CsvImport < ActiveRecord::Base
       row[0]
     else
     end
+  end
+  
+  def process
+    @data = load_csv_file_data
+    set_total_records_count(@data.size)
+    
+    @data.each do |row|
+      lead_hash = build_record(row, lead_type)
+      lead = Lead.find_by(:email => lead_hash[:email], :first_name => lead_hash[:first_name], :last_name => lead_hash[:last_name])
+      if lead
+        lead.update_attributes(lead_hash)
+        self.updated_records_count += 1
+      else
+        lead = user.leads.build(lead_hash)
+        if lead.valid?
+          lead.save
+          self.new_records_count += 1
+        else
+          lead.errors.each do |attribute, error|
+            err = self.import_errors.build({name: "#{lead.first_name} #{lead.last_name}", email: lead.email, field: attribute, message: error})
+            err.save!
+          end
+        end
+      end
+    end
+    self.csv_processed = true
+    self.save!
   end
 
 end

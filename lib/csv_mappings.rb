@@ -10,6 +10,25 @@ module CsvMappings
     end
   end
   
+  def map_price(record, possibles)
+    colname = record.keys & possibles
+    value = record[colname.first]
+    if value
+      value.to_f
+    else
+      0.00
+    end
+  end
+  
+  def map_date(record, possibles)
+    colname = record.keys & possibles
+    value = record[colname.first]
+    if value
+      value.to_date
+    else
+      nil
+    end
+  end
   def email_map
     [:email, :email_address, :email_1, :primary_email, :email_address_1]
   end

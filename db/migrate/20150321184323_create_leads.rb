@@ -13,6 +13,7 @@ class CreateLeads < ActiveRecord::Migration
       t.string :source
       t.string :category
       t.string :company
+      t.string :title
       t.string :phone_mobile
       t.string :phone_home
       t.string :phone_fax

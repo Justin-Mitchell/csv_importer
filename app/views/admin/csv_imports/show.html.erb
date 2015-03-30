@@ -1,63 +1,74 @@
 <p id="notice"><%= notice %></p>
-
-<div class='text-right'>
-  <p>
-    <strong>Current Time:</strong>
-    <%= Time.now.strftime("%I:%m%p")%>
-  </p>
+<div class='row'>
+  <div class='col-sm-12 text-right'>
+    <%= Time.now.strftime("%B %d, %Y (%I:%m%p)")%>
+  </div>
 </div>
-
-<p>
-  <strong>Name:</strong>
-  <%= @csv_import.name %>
-</p>
-
-<p>
-  <strong>Uploaded By:</strong>
-  <%= @csv_import.user.email %> at <em><%= @csv_import.created_at.strftime("%I:%m%p on %b %d, %Y")%></em>
-</p>
-
-<p>
-  <strong>Source:</strong>
-  <%= @csv_import.source %>
-</p>
-
-<p>
-  <strong>Total Records:</strong>
-  <%= @csv_import.total_records %>
-</p>
-
-<% if @csv_import.csv_processed %>
-  <p>
-    <strong>New Records:</strong>
-    <%= @csv_import.new_records_count %>
-  </p>
-  <p>
-    <strong>Updated Records:</strong>
-    <%= @csv_import.updated_records_count %>
-  </p>
-<% else %>
-  <p>
-    <strong>File Status:</strong>
-    Processing...
-  </p>
-<% end %>
-
-<p>
-  <strong>Csv:</strong>
-  <% if @csv_import.csv %>
-    <label class='label label-info'>
-      <i class='fa fa-paperclip'></i>
+<div class='row'>
+  <div class='col-sm-5'>
+    <div class='lead'>Import Details</div>
+    <p>
+      <strong>Name:</strong>
       <%= @csv_import.name %>
-    </label>
-  <% else %>
-    No File Found
-  <% end %>
-</p>
-<p>
-  <strong>File Path:</strong>
-  <%= @csv_import.csv.file.path %>
-</p>
+    </p>
 
-<%= link_to 'Edit', edit_admin_csv_import_path(@csv_import) %> |
-<%= link_to 'Back', admin_csv_imports_path %>
+    <p>
+      <strong>Uploaded By:</strong>
+      <%= @csv_import.user.email %> at <em><%= @csv_import.created_at.strftime("%I:%m%p on %b %d, %Y")%></em>
+    </p>
+
+    <p>
+      <strong>Source:</strong>
+      <%= @csv_import.source %>
+    </p>
+
+    <p>
+      <strong>Total Records:</strong>
+      <%= @csv_import.total_records %>
+    </p>
+
+    <% if @csv_import.csv_processed %>
+      <p>
+        <strong>New Records:</strong>
+        <%= @csv_import.new_records_count %>
+      </p>
+      <p>
+        <strong>Updated Records:</strong>
+        <%= @csv_import.updated_records_count %>
+      </p>
+    <% else %>
+      <p>
+        <strong>File Status:</strong>
+        Processing...
+      </p>
+    <% end %>
+
+    <p>
+      <strong>Csv:</strong>
+      <% if @csv_import.csv %>
+        <label class='label label-info'>
+          <i class='fa fa-paperclip'></i>
+          <%= @csv_import.csv.file.original_filename %>
+        </label>
+      <% else %>
+        No File Found
+      <% end %>
+    </p>
+  </div>
+  <div class='col-sm-7'>
+    <div class='lead'>Errors (<%= @csv_import.import_errors.size %>)</div>
+    <% if @csv_import.import_errors.any? %>
+      <ul style='font-size:11px;'>
+      <% @csv_import.import_errors.each do |error| %>
+        <li><%= error.display %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-sm-12'>
+    <%= link_to 'Edit', edit_admin_csv_import_path(@csv_import) %> |
+    <%= link_to 'Back', admin_csv_imports_path %>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 class Fusion
-  require 'csv_imports_helper'
    
     def self.field_names
        [
@@ -15,43 +14,41 @@ class Fusion
     end
     
     def self.build_hash(record, type)
-      include CsvImportsHelper
-       address_line_1 = "#{record[:house_number]} #{record[:direction_prefix]} #{record[:street]} #{record[:street_designator]} #{record[:direction_suffix]}"
-       address_line_2 = (record[:bldg_floor].blank? ? "#{record[:suite_no]}" : "Bldg #{record[:bldg_floor]} ##{record[:suite_no]}") unless record[:suite_no].blank?
-       raise first_name_map.inspect
-       hash = {
-         first_name: map_it(record, first_name_map),
-         last_name: map_it(record, last_name_map),
-         email: map_it(record, email_map),
-         kind: map_it(record, kind_map),
+       address_line_1 = "#{CsvMap.field(record, CsvMap.address1_map)}"
+       {
+         first_name: CsvMap.field(record, CsvMap.first_name_map),
+         last_name: CsvMap.field(record, CsvMap.last_name_map),
+         email: CsvMap.field(record, CsvMap.email_map),
+         kind: CsvMap.field(record, CsvMap.kind_map) || type,
          address1: address_line_1.blank? ? nil : address_line_1.split(' ').join(' '),
-         address2: address_line_2.blank? ? nil : address_line_2.split(' ').join(' '),
-         city: record[:city_1],
-         state: record[:state_1],
-         zipcode: record[:zip_1],
-         source: record[:source],
-         category: record[:status],
-         phone_mobile: record[:cell_phone],
-         phone_home: record[:home_phone],
-         phone_fax: record[],
-         phone_work: record[:work_phone],
-         birthday: record[].to_date,
-         purchase_date: record[].to_date,
-         budget: record[].to_f,
+         address2: nil,
+         company: CsvMap.field(record, CsvMap.company_map),
+         title: CsvMap.field(record, CsvMap.title_map),
+         city: CsvMap.field(record, CsvMap.city_map),
+         state: CsvMap.field(record, CsvMap.state_map),
+         zipcode: CsvMap.field(record, CsvMap.zipcode_map),
+         source: CsvMap.field(record, CsvMap.source_map),
+         category: CsvMap.field(record, CsvMap.category_map),
+         phone_mobile: CsvMap.field(record, CsvMap.phone_mobile_map),
+         phone_home: CsvMap.field(record, CsvMap.phone_home_map),
+         phone_fax: CsvMap.field(record, CsvMap.phone_fax_map),
+         phone_work: CsvMap.field(record, CsvMap.phone_work_map),
+         birthday: CsvMap.date(record, CsvMap.birthday_map),
+         purchase_date: CsvMap.date(record, CsvMap.purchase_date_map),
+         budget: CsvMap.field(record, CsvMap.budget_map),
          rating: nil,
-         home_value: record[],
+         home_value: CsvMap.field(record, CsvMap.home_value_map),
          entry_point: "CSV Import (Fusion)",
-         alt_email: record[],
-         status: record[],
-         referred_by: record[],
-         skype: nil,
-         facebook: nil,
-         gchat: nil,
-         aol: nil,
-         yahoo: nil,
-         access: 'Public',
-         user_id: nil
+         alt_email: CsvMap.field(record, CsvMap.alt_email_map),
+         status: CsvMap.field(record, CsvMap.status_map),
+         referred_by: CsvMap.field(record, CsvMap.referred_by_map),
+         skype: CsvMap.field(record, CsvMap.skype_map),
+         facebook: CsvMap.field(record, CsvMap.skype_map),
+         gchat: CsvMap.field(record, CsvMap.gchat_map),
+         aol: CsvMap.field(record, CsvMap.aol_map),
+         yahoo: CsvMap.field(record, CsvMap.yahoo_map),
+         comments: CsvMap.field(record, CsvMap.comments_map),
+         access: 'Public'
        }
-       return hash 
     end
 end

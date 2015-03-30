@@ -1,107 +1,68 @@
 <p id="notice"><%= notice %></p>
 
-<legend>Contact</legend>
-<h4><%= @lead.first_name %> <%= @lead.last_name %></h4>
-<p><strong>Company:</strong><%= @lead.company %></p>
+<div class='col-sm-3' style='font-size:10px;'>
+  <div class='row well'>
+  <p>
+  <div style='font-size:14px;font-weight:bold;'><%= @lead.name %></div>
+  <%= @lead.position %><br/>
+  </p>
+  <p>
+    <strong>Address</strong><br/>
+    <%= @lead.address1 %> <%= @lead.address2 %><br/>
+    <%= @lead.city %>, <%= @lead.state %><br/>
+    <%= @lead.zipcode %>
+  </p>
+  <p>
+    M.Phone: <strong><%= @lead.phone_mobile %></strong><br/>
+    H.Phone: <strong><%= @lead.phone_home %></strong><br/>
+    W.Phone: <strong><%= @lead.phone_work %></strong><br/>
+    Fax Num: <strong><%= @lead.phone_fax %></strong><br/>
+  </p>
+  <p>
+    Email: <em><%= mail_to(@lead.email) %></em><br/>
+    Other: <em><%= mail_to(@lead.alt_email) %></em>
+  </p>
+  </div>
+  <div class='row well'>
+  <legend style='font-size:14px;color:navy;'>Lead Summary</legend>
+  <table class='table table-condensed table-striped'>
+    <tr><th>Type:</th><td><%= @lead.kind %></td></tr>
+    <tr><th>Category:</th><td><%= @lead.category %></td></tr>
+    <tr><th>Status:</th><td><%= @lead.status %></td></tr>
+    <tr><th>Source:</th><td><%= @lead.source %></td></tr>
+    <tr><th>Entry Point:</th><td><%= @lead.entry_point %></td></tr>
+    <tr><th>Rating:</th><td><%= @lead.rating %></td></tr>
+    <tr><th>Referred by:</th><td></td></tr>
+    <tr><th>Assigned To:</th><td></td></tr>
+  </table>
+  <p>
+    <%= link_to 'Edit', edit_admin_lead_path(@lead) %> |
+    <%= link_to 'Back', admin_leads_path %>
+  </p>
+  </div>
+  
+  <div class='row well'>
+    <p>
+      <strong>Birthday: </strong><%= @lead.birthday %><br/>
+    </p>
+    <p>
+      <strong>Home Anniversary:</strong> <%= @lead.purchase_date %><br/>
+    </p>
+    <p>
+      <strong>Budget:</strong> <%= number_to_currency(@lead.budget) %><br/>
+    </p>
+    <p>
+      <strong>Purchase price: </strong><%= number_to_currency(@lead.purchase_price) %><br/>
+    </p>
+    <p>
+      <strong>Home value:</strong> <%= number_to_currency(@lead.home_value) %><br/>
+    </p>
+  </div>
+</div>
 
-<legend>Address</legend>
-<p><%= @lead.address1 %></p>
-<p><%= @lead.address2 %></p>
-<p><%= @lead.city %>, <%= @lead.state %></p>
-<p><%= @lead.zipcode %></p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @lead.email %>
-</p>
-
-<p>
-  <strong>Kind:</strong>
-  <%= @lead.kind %>
-</p>
 
 
 
-<p>
-  <strong>Source:</strong>
-  <%= @lead.source %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @lead.category %>
-</p>
-
-
-<p>
-  <strong>Phone mobile:</strong>
-  <%= @lead.phone_mobile %>
-</p>
-
-<p>
-  <strong>Phone home:</strong>
-  <%= @lead.phone_home %>
-</p>
-
-<p>
-  <strong>Phone fax:</strong>
-  <%= @lead.phone_fax %>
-</p>
-
-<p>
-  <strong>Phone work:</strong>
-  <%= @lead.phone_work %>
-</p>
-
-<p>
-  <strong>Birthday:</strong>
-  <%= @lead.birthday %>
-</p>
-
-<p>
-  <strong>Purchase date:</strong>
-  <%= @lead.purchase_date %>
-</p>
-
-<p>
-  <strong>Budget:</strong>
-  <%= @lead.budget %>
-</p>
-
-<p>
-  <strong>Purchase price:</strong>
-  <%= @lead.purchase_price %>
-</p>
-
-<p>
-  <strong>Rating:</strong>
-  <%= @lead.rating %>
-</p>
-
-<p>
-  <strong>Home value:</strong>
-  <%= @lead.home_value %>
-</p>
-
-<p>
-  <strong>Entry point:</strong>
-  <%= @lead.entry_point %>
-</p>
-
-<p>
-  <strong>Alt email:</strong>
-  <%= @lead.alt_email %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @lead.status %>
-</p>
-
-<p>
-  <strong>Referred by:</strong>
-  <%= @lead.referred_by %>
-</p>
 
 <p>
   <strong>Skype:</strong>
@@ -138,5 +99,4 @@
   <%= @lead.user_id %>
 </p>
 
-<%= link_to 'Edit', edit_admin_lead_path(@lead) %> |
-<%= link_to 'Back', admin_leads_path %>
+

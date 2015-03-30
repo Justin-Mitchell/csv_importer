@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325163140) do
+ActiveRecord::Schema.define(version: 20150329172002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,11 +21,11 @@ ActiveRecord::Schema.define(version: 20150325163140) do
     t.boolean  "is_temp"
     t.string   "lead_type"
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "user_id",                               null: false
     t.string   "csv"
-    t.integer  "total_records"
-    t.integer  "new_records_count"
-    t.integer  "updated_records_count"
+    t.integer  "total_records",         default: 0
+    t.integer  "new_records_count",     default: 0
+    t.integer  "updated_records_count", default: 0
     t.boolean  "csv_processed",         default: false
     t.string   "key"
     t.datetime "created_at",                            null: false
@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 20150325163140) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "import_errors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "field"
+    t.text     "message"
+    t.integer  "csv_import_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "import_errors", ["csv_import_id"], name: "index_import_errors_on_csv_import_id", using: :btree
+
   create_table "leads", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -58,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150325163140) do
     t.string   "source"
     t.string   "category"
     t.string   "company"
+    t.string   "title"
     t.string   "phone_mobile"
     t.string   "phone_home"
     t.string   "phone_fax"
@@ -122,4 +135,5 @@ ActiveRecord::Schema.define(version: 20150325163140) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "import_errors", "csv_imports"
 end

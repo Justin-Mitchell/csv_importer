@@ -40,7 +40,7 @@ class TopProducer
       ]
    end 
    
-   def self.build_hash(record)
+   def self.build_hash(record, type)
      include CsvImportsHelper
      # Top Producer Values
      address_line_1 = "#{record[:house_number]} #{record[:direction_prefix]} #{record[:street]} #{record[:street_designator]} #{record[:direction_suffix]}"
@@ -49,7 +49,7 @@ class TopProducer
        first_name: record[:primary_firstname],
        last_name: record[:primary_lastname],
        email: record[:email_address],
-       kind: record[:contact_type],
+       kind: record[:contact_type] || type,
        address1: address_line_1.blank? ? nil : address_line_1.split(' ').join(' '),
        address2: address_line_2.blank? ? nil : address_line_2.split(' ').join(' '),
        city: record[:city],
