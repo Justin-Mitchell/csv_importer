@@ -63,8 +63,9 @@ class CsvImport < ActiveRecord::Base
     when "outlook"
       row[0]
     when "google"
-      Fusion.build_hash(record, type)
-      #GoogleCsv.new(record, type)
+      #Fusion.build_hash(record, type)
+      obj = GoogleCsv.new(record, type)
+      obj.build_hash
     else
     end
   end

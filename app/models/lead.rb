@@ -142,7 +142,7 @@ class Lead < ActiveRecord::Base
     elsif !company && title
       "#{title}"
     else
-      false
+      ''
     end
   end
   

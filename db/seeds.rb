@@ -15,9 +15,9 @@ require 'ffaker'
 
 # Temporary admin account
 u = User.new(
-    email: "admin@example.com",
-    password: "1234",
-    password_confirmation: "1234",
+    email: ENV['ADMIN_EMAIL'],
+    password: ENV['ADMIN_PASS'],
+    password_confirmation: ENV['ADMIN_PASS'],
     admin: true
 )
 u.skip_confirmation!

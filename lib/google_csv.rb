@@ -43,33 +43,32 @@ class GoogleCsv
   
   def build_hash
     # Google CSV
-    address_line_1 = "#{data[:"address_1_-_street"]}"
     hash = {
       first_name: data[:given_name],
       last_name: data[:family_name],
       email: primary_email,
       kind: type,
-      address1: data[:"address_1_-_street"],
+      address1: primary_address[:street],
       address2: nil,
-      city: data[:"address_1_-_city"],
-      state: data[:"address_1_-_region"],
-      zipcode: data[:"address_1_-_postal_code"],
+      city: primary_address[:city],
+      state: primary_address[:state],
+      zipcode: primary_address[:postal_code],
       source: 'google contacts',
       category: data[:lead_status],
       company: data[:company],
-      phone_mobile: data[:mobile_phone],
-      phone_home: data[:home_phone],
-      phone_fax: data[:fax_number],
-      phone_work: data[:bus_phone],
-      birthday: data[:primary_birthday],
+      phone_mobile: mobile_phone,
+      phone_home: home_phone,
+      phone_fax: fax_number,
+      phone_work: work_phone,
+      birthday: data[:birthday],
       purchase_date: nil,
-      budget: [0, nil].include?(data[:future_max_price]) ? nil : data[:future_max_price].to_f,
+      budget: nil,
       rating: nil,
       home_value: nil,
-      entry_point: "CSV Import (Top Producer)",
+      entry_point: "CSV Import (Google)",
       alt_email: alt_email,
-      status: data[:lead_status],
-      referred_by: data[:referred_contact_name] || data[:"referred_to/by_contact_name"],
+      status: nil,
+      referred_by: nil,
       skype: nil,
       facebook: nil,
       gchat: nil,
@@ -81,21 +80,81 @@ class GoogleCsv
     return hash
   end
   
+  def collect_addresses
+    results = {}
+    (1..6).map {|i| "address_#{i}_-_type".to_sym}.each do |key|
+      unless data[key].nil?
+        num = key.to_s.gsub(/\D/, '')
+        results[data[key].downcase.to_sym] = {
+          formatted: data["address_#{num}_-_formatted".to_sym],
+          street: data["address_#{num}_-_street".to_sym],
+          city: data["address_#{num}_-_city".to_sym],
+          po_box: data["address_#{num}_-_street".to_sym],
+          state: data["address_#{num}_-_region".to_sym],
+          postal_code: data["address_#{num}_-_postal_code".to_sym],
+          country: data["address_#{num}_-_country".to_sym],
+          extended: data["address_#{num}_-_extended_address".to_sym]
+        }
+      end
+    end
+    results
+  end
+  
   def fetch_emails
     column_names = data.keys & [:"e-mail_1_-_value", :"e-mail_2_-_value", :"e-mail_3_-_value", :"e-mail_4_-_value"]
     arry = column_names.map {|key| data[key]}.compact
   end
   
+  def poly_lookup(type, value)
+    result = []
+    (1..8).map {|i| "#{type}_#{i}_-_type".to_sym}.each do |key|
+      if data[key] && data[key].gsub(/\*/, '').strip.downcase == value.downcase
+        value_key = ("#{type.downcase}_" + key.to_s.gsub(/\D/, '') + '_-_value').to_sym
+        result << data[value_key]
+      end
+    end
+    result.first
+  end
+  
+  def primary_lookup(type)
+    result = []
+    (1..8).map {|i| "#{type}_#{i}_-_type".to_sym}.each do |key|
+      if data[key] && data[key].include?('*')
+        value_key = ("#{type.downcase}_" + key.to_s.gsub(/\D/, '') + '_-_value').to_sym
+        result << data[value_key].gsub(/\*/, '').strip.downcase
+      end
+    end
+    result.first
+  end
+  
   def primary_email
-    fetch_emails.compact.first
+    primary_lookup('e-mail')
+  end
+  
+  def primary_address
+    addresses = collect_addresses
+    if addresses.size > 0
+      if addresses.keys.include?(:home)
+        addresses[:home]
+      else
+        addresses.first[1]
+      end
+    else
+      {}
+    end
   end
   
   def alt_email
-    if fetch_emails.size > 2
-      fetch_emails.last
-    else
-      nil
+    results = []
+    (1..8).map {|i| "e-mail_#{i}_-_type".to_sym}.each do |key|
+      if data[key]
+        unless data[key].include?('*')
+          value_key = ("e-mail_" + key.to_s.gsub(/\D/, '') + '_-_value').to_sym
+          results << data[value_key].strip.downcase
+        end
+      end
     end
+    results.first
   end
   
   def spouse
@@ -104,6 +163,25 @@ class GoogleCsv
       data[("relation_" + key.to_s.gsub!(/\D/, "") + "_-_value").to_sym]
     end
   end
-      
   
+  def home_phone
+    poly_lookup('phone', 'home')
+  end
+  
+  def mobile_phone
+    poly_lookup('phone', 'mobile')
+  end
+  
+  def work_phone
+    poly_lookup('phone', 'work')
+  end
+  
+  def fax_number
+    poly_lookup('phone', 'work fax') || poly_lookup('phone', 'home fax')
+  end
+  
+  def custom_phone(name)
+    poly_lookup('phone', name)
+  end
+       
 end

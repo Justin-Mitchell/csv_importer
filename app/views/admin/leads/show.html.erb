@@ -7,16 +7,20 @@
   <%= @lead.position %><br/>
   </p>
   <p>
-    <strong>Address</strong><br/>
+    <span class='legend'>Address</span><br/>
     <%= @lead.address1 %> <%= @lead.address2 %><br/>
     <%= @lead.city %>, <%= @lead.state %><br/>
     <%= @lead.zipcode %>
   </p>
-  <p>
-    M.Phone: <strong><%= @lead.phone_mobile %></strong><br/>
+  <dl class='dl-horizontal'>
+    <dt>M.Phone:</dt><dd><%= @lead.phone_mobile %></dd>
+    <dt>H.Phone:</dt><dd><%= @lead.phone_home %></dd>
+    <dt>W.Phone:</dt><dd><%= @lead.phone_work %></dd>
+    <dt>Fax Num:</dt><dd><%= @lead.phone_fax %></dd>
+  </dl>
     H.Phone: <strong><%= @lead.phone_home %></strong><br/>
-    W.Phone: <strong><%= @lead.phone_work %></strong><br/>
-    Fax Num: <strong><%= @lead.phone_fax %></strong><br/>
+     <strong></strong><br/>
+     <strong></strong><br/>
   </p>
   <p>
     Email: <em><%= mail_to(@lead.email) %></em><br/>
