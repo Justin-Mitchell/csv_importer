@@ -1,24 +1,29 @@
-class MarketLeaderCsv
+class RemaxCsv
   
   def self.fields
     [
-      "First Name","Last Name","Home Phone","Work Phone","Cell Phone",
-      "Primary Email Address","Email Address 2","Email Address 3",
-      "Moving From","Looking In","Average Price","Status","Date","Agent",
-      "Primary Email Working","Email Working 2","Email Working 3",
-      "Has Agent","Requested Pre-Approval","Has Mortgage Lender",
-      "Has Listing Alerts","Total Properties Viewed","Timeframe","Source",
-      "Address 1","City 1","State 1","Zip 1","Address 2","City 2","State 2",
-      "Zip 2","Address 3","City 3","State 3","Zip 3","Address 4","City 4",
-      "State 4","Zip 4","Address 5","City 5","State 5","Zip 5",
-      "Registered From Agent Site"
+      'Client ID', 'First Name', 'Last Name', 'E-mail Address', 'Password', 
+      'Classification', 'Home Street', 'Home City', 'Home State', 
+      'Home Postal Code', 'Country Code', 'Home Phone', 'Cell Phone', 
+      'Business Phone', 'Home Fax', 'Birthday', 'Company Name', 'Gender', 
+      'Lead Type', 'Client Status', 'Moving Timeframe', 'Residence', 
+      'Selling', 'Buying', 'Loan Services', 'Pre-Approved', 'Created Date', 
+      'Accepted Date', 'Able to Login', 'Last Activity Date', 'Notes', 
+      '2nd First Name', '2nd Last Name', 'Groups', '2nd Client ID', 
+      'Relationship', '2nd Gender', '2nd E-mail Address', '2nd Home Phone', 
+      '2nd Business Phone', '2nd Cell Phone', '2nd Fax', '2nd Company Name', 
+      '2nd Birthday'
     ]
+  end
+  
+  def fields
+    self.fields
   end
   
   def self.build_hash(record, type)
      address_line_1 = "#{CsvMap.field(record, CsvMap.address1_map)}"
      {
-       entry_point:     "CSV Import (Market Leader)",
+       entry_point:     "CSV Import (Remax Contacts)",
        first_name:      CsvMap.field(record, CsvMap.first_name_map),
        last_name:       CsvMap.field(record, CsvMap.last_name_map),
        email:           CsvMap.field(record, CsvMap.email_map),
@@ -30,14 +35,14 @@ class MarketLeaderCsv
        city:            CsvMap.field(record, CsvMap.city_map),
        state:           CsvMap.field(record, CsvMap.state_map),
        zipcode:         CsvMap.field(record, CsvMap.zipcode_map),
-       source:          CsvMap.field(record, CsvMap.source_map) || 'Market Leader',
+       source:          CsvMap.field(record, CsvMap.source_map) || 'Fusion Contacts',
        category:        CsvMap.field(record, CsvMap.category_map),
-       phone_mobile:    CsvMap.field(record, CsvMap.phone_mobile_map),
-       phone_home:      CsvMap.field(record, CsvMap.phone_home_map),
-       phone_fax:       CsvMap.field(record, CsvMap.phone_fax_map),
-       phone_work:      CsvMap.field(record, CsvMap.phone_work_map),
-       birthday:        CsvMap.date(record, CsvMap.birthday_map),
-       purchase_date:   CsvMap.date(record, CsvMap.purchase_date_map),
+       phone_mobile:    CsvMap.phone(record, CsvMap.phone_mobile_map),
+       phone_home:      CsvMap.phone(record, CsvMap.phone_home_map),
+       phone_fax:       CsvMap.phone(record, CsvMap.phone_fax_map),
+       phone_work:      CsvMap.phone(record, CsvMap.phone_work_map),
+       birthday:        CsvMap.date(record,  CsvMap.birthday_map),
+       purchase_date:   CsvMap.date(record,  CsvMap.purchase_date_map),
        budget:          CsvMap.field(record, CsvMap.budget_map),
        rating:          nil,
        home_value:      CsvMap.field(record, CsvMap.home_value_map),
@@ -54,19 +59,4 @@ class MarketLeaderCsv
      }
   end
   
-  def fields
-    self.fields
-  end
-  
-  def status_map
-    [
-      "New",
-      "Retry",
-      "Active",
-      "Inactive",
-      "Hot",
-      "Sold",
-      "Trash"
-    ]
-  end
 end

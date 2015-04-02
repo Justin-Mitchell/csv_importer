@@ -32,7 +32,7 @@
         <td><%= csv_import.total_records %></td>
         <td><%= csv_import.new_records_count %></td>
         <td><%= csv_import.updated_records_count %></td>
-        <td><%=  %>0</td>
+        <td><%= csv_import.import_errors.size %></td>
         <td><%= link_to 'Show', admin_csv_import_path(csv_import) %></td>
         <td><%= link_to 'Edit', edit_admin_csv_import_path(csv_import) %></td>
         <td><%= link_to 'Destroy', admin_csv_import_path(csv_import), method: :delete, data: { confirm: 'Are you sure?' } %></td>

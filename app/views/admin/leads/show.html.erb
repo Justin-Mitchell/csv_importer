@@ -7,10 +7,14 @@
   <%= @lead.position %><br/>
   </p>
   <p>
-    <span class='legend'>Address</span><br/>
+    <span class='legend'><strong>Address</strong></span><br/>
     <%= @lead.address1 %> <%= @lead.address2 %><br/>
     <%= @lead.city %>, <%= @lead.state %><br/>
     <%= @lead.zipcode %>
+  </p>
+  <p>
+    <strong>Email:</strong> <em><%= mail_to(@lead.email) %></em><br/>
+    <strong>Other:</strong> <em><%= mail_to(@lead.alt_email) %></em>
   </p>
   <dl class='dl-horizontal'>
     <dt>M.Phone:</dt><dd><%= @lead.phone_mobile %></dd>
@@ -18,14 +22,14 @@
     <dt>W.Phone:</dt><dd><%= @lead.phone_work %></dd>
     <dt>Fax Num:</dt><dd><%= @lead.phone_fax %></dd>
   </dl>
-    H.Phone: <strong><%= @lead.phone_home %></strong><br/>
-     <strong></strong><br/>
-     <strong></strong><br/>
-  </p>
+  <% if @lead.comments %>
+  
   <p>
-    Email: <em><%= mail_to(@lead.email) %></em><br/>
-    Other: <em><%= mail_to(@lead.alt_email) %></em>
+    <span class='legend'><strong>Notes:</strong></span><br/>
+    <%= @lead.comments %>
   </p>
+  <% end %>
+  
   </div>
   <div class='row well'>
   <legend style='font-size:14px;color:navy;'>Lead Summary</legend>

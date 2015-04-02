@@ -14,11 +14,13 @@ class CsvImport < ActiveRecord::Base
     def source_options_for_select
       [
         ['--------------', 'other'],
-        ['Top Producer', 'top_producer'],
         ['MLS Fusion', 'fusion'],
+        ['Top Producer', 'top_producer'],
+        ['Lead Street', 'remax'],
+        ['Market Leader', 'market_leader'],
         ['Outlook', 'outlook'],
         ['Google', 'google'],
-        ['Remax', 'remax'],
+        ['Yahoo', 'yahoo'],
         ['Other', 'other']
       ]
     end
@@ -57,16 +59,20 @@ class CsvImport < ActiveRecord::Base
   def build_record(record, type)
     case self.source
     when "top_producer"
-      TopProducer.build_hash(record, type)
+      TopProducerCsv.build_hash(record, type)
     when "fusion"
-      Fusion.build_hash(record, type)
+      FusionCsv.build_hash(record, type)
+    when 'remax'
+      RemaxCsv.build_hash(record, type)
+    when 'yahoo'
+      YahooCsv.build_hash(record, type)
     when "outlook"
-      row[0]
+      OutlookCsv.build_hash(record, type)
     when "google"
-      #Fusion.build_hash(record, type)
       obj = GoogleCsv.new(record, type)
       obj.build_hash
     else
+      raise
     end
   end
   

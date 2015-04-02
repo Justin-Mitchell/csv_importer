@@ -1,4 +1,5 @@
-class Yahoo
+class YahooCsv
+  # https://help.yahoo.com/kb/back-contacts-sln22580.html
   
   def self.field_names
     [
@@ -31,16 +32,16 @@ class Yahoo
        zipcode: CsvMap.field(record, CsvMap.zipcode_map),
        source: CsvMap.field(record, CsvMap.source_map),
        category: CsvMap.field(record, CsvMap.category_map),
-       phone_mobile: CsvMap.field(record, CsvMap.phone_mobile_map),
-       phone_home: CsvMap.field(record, CsvMap.phone_home_map),
-       phone_fax: CsvMap.field(record, CsvMap.phone_fax_map),
-       phone_work: CsvMap.field(record, CsvMap.phone_work_map),
+       phone_mobile: CsvMap.phone(record, CsvMap.phone_mobile_map),
+       phone_home: CsvMap.phone(record, CsvMap.phone_home_map),
+       phone_fax: CsvMap.phone(record, CsvMap.phone_fax_map),
+       phone_work: CsvMap.phone(record, CsvMap.phone_work_map),
        birthday: CsvMap.date(record, CsvMap.birthday_map),
        purchase_date: CsvMap.date(record, CsvMap.purchase_date_map),
        budget: CsvMap.field(record, CsvMap.budget_map),
        rating: nil,
        home_value: CsvMap.field(record, CsvMap.home_value_map),
-       entry_point: "CSV Import (Fusion)",
+       entry_point: "CSV Import (Yahoo Contacts)",
        alt_email: CsvMap.field(record, CsvMap.alt_email_map),
        status: CsvMap.field(record, CsvMap.status_map),
        referred_by: CsvMap.field(record, CsvMap.referred_by_map),
