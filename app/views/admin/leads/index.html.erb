@@ -50,7 +50,7 @@
         <td><%= lead.rating %></td>
         <td><%= lead.status %></td>
         <td><%= link_to 'Show', admin_lead_path(lead) %></td>
-        <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
+        <td><%= link_to 'Edit', edit_admin_lead_path(lead) %></td>
         <td><%= link_to 'Destroy', admin_lead_path(lead.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
