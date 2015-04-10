@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <Cell><Data ss:Type="String">Type</Data></Cell>
+        <Cell><Data ss:Type="String">Address 1</Data></Cell>
+        <Cell><Data ss:Type="String">Address 2</Data></Cell>
+        <Cell><Data ss:Type="String">City</Data></Cell>
+        <Cell><Data ss:Type="String">State</Data></Cell>
+        <Cell><Data ss:Type="String">Postal Code</Data></Cell>
+        <Cell><Data ss:Type="String">Source</Data></Cell>
+        <Cell><Data ss:Type="String">Category</Data></Cell>
+        <Cell><Data ss:Type="String">Company</Data></Cell>
+        <Cell><Data ss:Type="String">Title</Data></Cell>
+        <Cell><Data ss:Type="String">Mobile Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Home Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Fax Number</Data></Cell>
+        <Cell><Data ss:Type="String">Work Phone</Data></Cell>
+        <Cell><Data ss:Type="String">Birthday</Data></Cell>
+        <Cell><Data ss:Type="String">Purchase Date</Data></Cell>
+        <Cell><Data ss:Type="String">Budget</Data></Cell>
+        <Cell><Data ss:Type="String">Purchase Price</Data></Cell>
+        <Cell><Data ss:Type="String">Rating</Data></Cell>
+        <Cell><Data ss:Type="String">Home Value</Data></Cell>
+        <Cell><Data ss:Type="String">Website Entry Point</Data></Cell>
+        <Cell><Data ss:Type="String">Alternate Email</Data></Cell>
+        <Cell><Data ss:Type="String">Status</Data></Cell>
+        <Cell><Data ss:Type="String">Referred By</Data></Cell>
+        <Cell><Data ss:Type="String">Skype</Data></Cell>
+        <Cell><Data ss:Type="String">Facebook</Data></Cell>
+        <Cell><Data ss:Type="String">Google Chat</Data></Cell>
+        <Cell><Data ss:Type="String">AOL</Data></Cell>
+        <Cell><Data ss:Type="String">Yahoo</Data></Cell>
+        <Cell><Data ss:Type="String">Comments</Data></Cell>
+      </Row>
+    <% @leads.each do |lead| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= lead.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.first_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.last_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.email %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.kind %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.address1 %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.address2 %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.city %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.state %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.zipcode %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.source %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.category %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.company %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.title %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.phone_mobile %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.phone_home %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.phone_fax %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.phone_work %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.birthday %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.purchase_date %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.budget %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.purchase_price %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.rating %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.home_value %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.entry_point %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.alt_email %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.status %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.referred_by %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.skype %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.facebook %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.gchat %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.aol %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.yahoo %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= lead.comments %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

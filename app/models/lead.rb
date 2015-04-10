@@ -10,7 +10,7 @@ class Lead < ActiveRecord::Base
   validate :contactable
     
   # Pagination
-  paginates_per 50
+  paginates_per 100
     
   # Scopes
   scope :birthdays, lambda {
@@ -20,6 +20,15 @@ class Lead < ActiveRecord::Base
   
   # Class Methods
   class << self
+    
+    def to_csv(options = {})
+      CSV.generate do |csv|
+        csv << column_names
+        all.each do |product|
+          csv << product.attributes.values_at(*column_names)
+        end
+      end
+    end
       
     def search_and_order(search, page_number)
       if search

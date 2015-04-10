@@ -6,6 +6,11 @@ class Admin::LeadsController < ApplicationController
   # GET /leads.json
   def index
     @leads = Lead.search_and_order(params[:search], params[:page])
+    respond_to do |format|
+      format.html
+      format.csv { render text: @leads.to_csv }
+      format.xls
+    end
   end
 
   # GET /leads/1
