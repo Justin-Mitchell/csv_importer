@@ -1,66 +1,67 @@
-                  Prefix Verb   URI Pattern                           Controller#Action
-             sidekiq_web        /sidekiq                              Sidekiq::Web
-                    root GET    /                                     pages#home
-                    home GET    /home(.:format)                       pages#home
-                  inside GET    /inside(.:format)                     pages#inside
-                 contact GET    /contact(.:format)                    pages#contact
-      email_confirmation POST   /emailconfirmation(.:format)          pages#email
-                   posts GET    /posts(.:format)                      pages#posts
-                    post GET    /posts/:id(.:format)                  pages#show_post
-        new_user_session GET    /users/sign_in(.:format)              devise/sessions#new
-            user_session POST   /users/sign_in(.:format)              devise/sessions#create
-    destroy_user_session DELETE /users/sign_out(.:format)             devise/sessions#destroy
-           user_password POST   /users/password(.:format)             devise/passwords#create
-       new_user_password GET    /users/password/new(.:format)         devise/passwords#new
-      edit_user_password GET    /users/password/edit(.:format)        devise/passwords#edit
-                         PATCH  /users/password(.:format)             devise/passwords#update
-                         PUT    /users/password(.:format)             devise/passwords#update
-       user_confirmation POST   /users/confirmation(.:format)         devise/confirmations#create
-   new_user_confirmation GET    /users/confirmation/new(.:format)     devise/confirmations#new
-                         GET    /users/confirmation(.:format)         devise/confirmations#show
-              admin_root GET    /admin(.:format)                      admin/base#index
-             admin_users GET    /admin/users(.:format)                admin/users#index
-                         POST   /admin/users(.:format)                admin/users#create
-          new_admin_user GET    /admin/users/new(.:format)            admin/users#new
-         edit_admin_user GET    /admin/users/:id/edit(.:format)       admin/users#edit
-              admin_user GET    /admin/users/:id(.:format)            admin/users#show
-                         PATCH  /admin/users/:id(.:format)            admin/users#update
-                         PUT    /admin/users/:id(.:format)            admin/users#update
-                         DELETE /admin/users/:id(.:format)            admin/users#destroy
-      admin_posts_drafts GET    /admin/posts/drafts(.:format)         admin/posts#drafts
-   admin_posts_dashboard GET    /admin/posts/dashboard(.:format)      admin/posts#dashboard
-             admin_posts GET    /admin/posts(.:format)                admin/posts#index
-                         POST   /admin/posts(.:format)                admin/posts#create
-          new_admin_post GET    /admin/posts/new(.:format)            admin/posts#new
-         edit_admin_post GET    /admin/posts/:id/edit(.:format)       admin/posts#edit
-              admin_post GET    /admin/posts/:id(.:format)            admin/posts#show
-                         PATCH  /admin/posts/:id(.:format)            admin/posts#update
-                         PUT    /admin/posts/:id(.:format)            admin/posts#update
-                         DELETE /admin/posts/:id(.:format)            admin/posts#destroy
-      import_admin_leads POST   /admin/leads/import(.:format)         admin/leads#import
-             admin_leads GET    /admin/leads(.:format)                admin/leads#index
-                         POST   /admin/leads(.:format)                admin/leads#create
-          new_admin_lead GET    /admin/leads/new(.:format)            admin/leads#new
-         edit_admin_lead GET    /admin/leads/:id/edit(.:format)       admin/leads#edit
-              admin_lead GET    /admin/leads/:id(.:format)            admin/leads#show
-                         PATCH  /admin/leads/:id(.:format)            admin/leads#update
-                         PUT    /admin/leads/:id(.:format)            admin/leads#update
-                         DELETE /admin/leads/:id(.:format)            admin/leads#destroy
-import_admin_csv_imports POST   /admin/csv_imports/import(.:format)   admin/csv_imports#import
-       admin_csv_imports GET    /admin/csv_imports(.:format)          admin/csv_imports#index
-                         POST   /admin/csv_imports(.:format)          admin/csv_imports#create
-    new_admin_csv_import GET    /admin/csv_imports/new(.:format)      admin/csv_imports#new
-   edit_admin_csv_import GET    /admin/csv_imports/:id/edit(.:format) admin/csv_imports#edit
-        admin_csv_import GET    /admin/csv_imports/:id(.:format)      admin/csv_imports#show
-                         PATCH  /admin/csv_imports/:id(.:format)      admin/csv_imports#update
-                         PUT    /admin/csv_imports/:id(.:format)      admin/csv_imports#update
-                         DELETE /admin/csv_imports/:id(.:format)      admin/csv_imports#destroy
-            import_leads POST   /leads/import(.:format)               leads#import
-                   leads GET    /leads(.:format)                      leads#index
-                         POST   /leads(.:format)                      leads#create
-                new_lead GET    /leads/new(.:format)                  leads#new
-               edit_lead GET    /leads/:id/edit(.:format)             leads#edit
-                    lead GET    /leads/:id(.:format)                  leads#show
-                         PATCH  /leads/:id(.:format)                  leads#update
-                         PUT    /leads/:id(.:format)                  leads#update
-                         DELETE /leads/:id(.:format)                  leads#destroy
+                  Prefix Verb   URI Pattern                              Controller#Action
+             sidekiq_web        /sidekiq                                 Sidekiq::Web
+                    root GET    /                                        pages#home
+                    home GET    /home(.:format)                          pages#home
+                  inside GET    /inside(.:format)                        pages#inside
+                 contact GET    /contact(.:format)                       pages#contact
+      email_confirmation POST   /emailconfirmation(.:format)             pages#email
+                   posts GET    /posts(.:format)                         pages#posts
+                    post GET    /posts/:id(.:format)                     pages#show_post
+        new_user_session GET    /users/sign_in(.:format)                 devise/sessions#new
+            user_session POST   /users/sign_in(.:format)                 devise/sessions#create
+    destroy_user_session DELETE /users/sign_out(.:format)                devise/sessions#destroy
+           user_password POST   /users/password(.:format)                devise/passwords#create
+       new_user_password GET    /users/password/new(.:format)            devise/passwords#new
+      edit_user_password GET    /users/password/edit(.:format)           devise/passwords#edit
+                         PATCH  /users/password(.:format)                devise/passwords#update
+                         PUT    /users/password(.:format)                devise/passwords#update
+       user_confirmation POST   /users/confirmation(.:format)            devise/confirmations#create
+   new_user_confirmation GET    /users/confirmation/new(.:format)        devise/confirmations#new
+                         GET    /users/confirmation(.:format)            devise/confirmations#show
+              admin_root GET    /admin(.:format)                         admin/base#index
+             admin_users GET    /admin/users(.:format)                   admin/users#index
+                         POST   /admin/users(.:format)                   admin/users#create
+          new_admin_user GET    /admin/users/new(.:format)               admin/users#new
+         edit_admin_user GET    /admin/users/:id/edit(.:format)          admin/users#edit
+              admin_user GET    /admin/users/:id(.:format)               admin/users#show
+                         PATCH  /admin/users/:id(.:format)               admin/users#update
+                         PUT    /admin/users/:id(.:format)               admin/users#update
+                         DELETE /admin/users/:id(.:format)               admin/users#destroy
+      admin_posts_drafts GET    /admin/posts/drafts(.:format)            admin/posts#drafts
+   admin_posts_dashboard GET    /admin/posts/dashboard(.:format)         admin/posts#dashboard
+             admin_posts GET    /admin/posts(.:format)                   admin/posts#index
+                         POST   /admin/posts(.:format)                   admin/posts#create
+          new_admin_post GET    /admin/posts/new(.:format)               admin/posts#new
+         edit_admin_post GET    /admin/posts/:id/edit(.:format)          admin/posts#edit
+              admin_post GET    /admin/posts/:id(.:format)               admin/posts#show
+                         PATCH  /admin/posts/:id(.:format)               admin/posts#update
+                         PUT    /admin/posts/:id(.:format)               admin/posts#update
+                         DELETE /admin/posts/:id(.:format)               admin/posts#destroy
+      import_admin_leads POST   /admin/leads/import(.:format)            admin/leads#import
+             admin_leads GET    /admin/leads(.:format)                   admin/leads#index
+                         POST   /admin/leads(.:format)                   admin/leads#create
+          new_admin_lead GET    /admin/leads/new(.:format)               admin/leads#new
+         edit_admin_lead GET    /admin/leads/:id/edit(.:format)          admin/leads#edit
+              admin_lead GET    /admin/leads/:id(.:format)               admin/leads#show
+                         PATCH  /admin/leads/:id(.:format)               admin/leads#update
+                         PUT    /admin/leads/:id(.:format)               admin/leads#update
+                         DELETE /admin/leads/:id(.:format)               admin/leads#destroy
+import_admin_csv_imports POST   /admin/csv_imports/import(.:format)      admin/csv_imports#import
+mapping_admin_csv_import GET    /admin/csv_imports/:id/mapping(.:format) admin/csv_imports#mapping
+       admin_csv_imports GET    /admin/csv_imports(.:format)             admin/csv_imports#index
+                         POST   /admin/csv_imports(.:format)             admin/csv_imports#create
+    new_admin_csv_import GET    /admin/csv_imports/new(.:format)         admin/csv_imports#new
+   edit_admin_csv_import GET    /admin/csv_imports/:id/edit(.:format)    admin/csv_imports#edit
+        admin_csv_import GET    /admin/csv_imports/:id(.:format)         admin/csv_imports#show
+                         PATCH  /admin/csv_imports/:id(.:format)         admin/csv_imports#update
+                         PUT    /admin/csv_imports/:id(.:format)         admin/csv_imports#update
+                         DELETE /admin/csv_imports/:id(.:format)         admin/csv_imports#destroy
+            import_leads POST   /leads/import(.:format)                  leads#import
+                   leads GET    /leads(.:format)                         leads#index
+                         POST   /leads(.:format)                         leads#create
+                new_lead GET    /leads/new(.:format)                     leads#new
+               edit_lead GET    /leads/:id/edit(.:format)                leads#edit
+                    lead GET    /leads/:id(.:format)                     leads#show
+                         PATCH  /leads/:id(.:format)                     leads#update
+                         PUT    /leads/:id(.:format)                     leads#update
+                         DELETE /leads/:id(.:format)                     leads#destroy

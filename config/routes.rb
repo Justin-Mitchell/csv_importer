@@ -27,6 +27,7 @@ CsvImporter::Application.routes.draw do
     end
     resources :csv_imports do
       collection { post :import }
+      member { get :mapping }
     end
   end
   

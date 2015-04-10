@@ -66,6 +66,8 @@ class CsvImport < ActiveRecord::Base
       #Fusion.build_hash(record, type)
       obj = GoogleCsv.new(record, type)
       obj.build_hash
+    when "other"
+      raise
     else
     end
   end
