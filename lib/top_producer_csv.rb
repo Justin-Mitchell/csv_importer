@@ -1,4 +1,4 @@
-class TopProducer
+class TopProducerCsv
   require 'csv_imports_helper'
    
    def self.field_names
@@ -45,41 +45,41 @@ class TopProducer
      # Top Producer Values
      address_line_1 = "#{record[:house_number]} #{record[:direction_prefix]} #{record[:street]} #{record[:street_designator]} #{record[:direction_suffix]}"
      address_line_2 = (record[:bldg_floor].blank? ? "#{record[:suite_no]}" : "Bldg #{record[:bldg_floor]} ##{record[:suite_no]}") unless record[:suite_no].blank?
-     hash = {
-       first_name: record[:primary_firstname],
-       last_name: record[:primary_lastname],
-       email: record[:email_address],
-       kind: record[:contact_type] || type,
-       address1: address_line_1.blank? ? nil : address_line_1.split(' ').join(' '),
-       address2: address_line_2.blank? ? nil : address_line_2.split(' ').join(' '),
-       city: record[:city],
-       state: record[:state],
-       zipcode: record[:zip],
-       source: record[:source],
-       category: record[:lead_status],
-       company: record[:company],
-       phone_mobile: record[:mobile_phone],
-       phone_home: record[:home_phone],
-       phone_fax: record[:fax_number],
-       phone_work: record[:bus_phone],
-       birthday: record[:primary_birthday].blank? ? nil : record[:primary_birthday].to_date,
-       purchase_date: record[:closing_date].blank? ? nil : record[:closing_date].to_date,
-       budget: [0, nil].include?(record[:future_max_price]) ? nil : record[:future_max_price].to_f,
-       rating: nil,
-       home_value: record[:list_price],
-       entry_point: "CSV Import (Top Producer)",
-       alt_email: record[:other_email_web_addr],
-       status: record[:lead_status],
-       referred_by: record[:referred_contact_name] || record[:"referred_to/by_contact_name"],
-       skype: nil,
-       facebook: nil,
-       gchat: nil,
-       aol: nil,
-       yahoo: nil,
-       access: 'Public',
-       user_id: nil
+     {
+       entry_point:   "CSV Import (Top Producer)",
+       first_name:    CsvMap.field(record, CsvMap.first_name_map),
+       last_name:     CsvMap.field(record, CsvMap.last_name_map),
+       email:         CsvMap.field(record, CsvMap.email_map),
+       kind:          CsvMap.field(record, CsvMap.kind_map) || type,
+       address1:      address_line_1.blank? ? nil : address_line_1.split(' ').join(' '),
+       address2:      address_line_2.blank? ? nil : address_line_2.split(' ').join(' '),
+       city:          CsvMap.field(record, CsvMap.city_map),
+       state:         CsvMap.field(record, CsvMap.state_map),
+       zipcode:       CsvMap.field(record, CsvMap.zipcode_map),
+       source:        CsvMap.field(record, CsvMap.source_map),
+       category:      CsvMap.field(record, CsvMap.category_map),
+       company:       CsvMap.field(record, CsvMap.company_map),
+       title:         CsvMap.field(record, CsvMap.title_map),
+       phone_mobile:  CsvMap.field(record, CsvMap.phone_mobile_map),
+       phone_home:    CsvMap.field(record, CsvMap.phone_home_map),
+       phone_fax:     CsvMap.field(record, CsvMap.phone_fax_map),
+       phone_work:    CsvMap.field(record, CsvMap.phone_work_map),
+       birthday:      CsvMap.date(record, CsvMap.birthday_map),
+       purchase_date: CsvMap.date(record, CsvMap.purchase_date_map),
+       budget:        CsvMap.field(record, CsvMap.budget_map),
+       rating:        nil,
+       home_value:    CsvMap.field(record, CsvMap.home_value_map),
+       alt_email:     record[:other_email_web_addr],
+       status:        record[:lead_status],
+       referred_by:   record[:referred_contact_name] || record[:"referred_to/by_contact_name"],
+       skype:         nil,
+       facebook:      nil,
+       gchat:         nil,
+       aol:           nil,
+       yahoo:         nil,
+       access:        'Public',
+       user_id:       nil
      }
-     return hash
    end
     
 end

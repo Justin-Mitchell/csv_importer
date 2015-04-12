@@ -31,12 +31,22 @@ class CsvMap
       end
     end
     
+    def phone(record, possibles)
+      colname = record.keys & possibles
+      value = record[colname.first]
+      if value
+        value.to_s.gsub(/\D/, '')
+      else
+        nil
+      end
+    end
+    
     def email_map
-      [:email, :email_address, :email_1, :primary_email, :email_address_1, :e_mail_address, :e_mail, :e_mail_address_1, :e_mail_1_value, :"e-mail_1_-_value"]
+      [:email, :email_address, :email_1, :primary_email, :email_address_1, :e_mail_address, :"e-mail_address", :e_mail, :e_mail_address_1, :e_mail_1_value, :"e-mail_1_-_value"]
     end
   
     def alt_email_map
-      [:alt_email, :email_2, :secondary_email, :email_address_2, :other_email, :e_mail_2_address, :email_2_address, :alt_email_1]
+      [:alt_email, :email_2, :secondary_email, :email_address_2, :other_email, :e_mail_2_address, :email_2_address, :alt_email_1, :alternate_email_1]
     end
   
     def first_name_map
@@ -76,7 +86,7 @@ class CsvMap
     end
   
     def category_map
-      [:lead_status, :contact_status, :group, :group_membership]
+      [:lead_status, :contact_status, :group, :group_membership, :categories, :groups]
     end
     
     def company_map
@@ -84,7 +94,11 @@ class CsvMap
     end
     
     def title_map
-      [:title, :job_title, :position, :occupation]
+      [:title, :job_title, :position, :occupation, :profession]
+    end
+    
+    def department_map
+      [:department]
     end
     
     def comments_map
@@ -100,7 +114,7 @@ class CsvMap
     end
   
     def phone_fax_map
-      [:fax, :fax_number, :phone_fax, :fax_phone]
+      [:business_fax, :home_fax, :fax, :fax_number, :phone_fax, :fax_phone]
     end
   
     def phone_work_map
@@ -124,7 +138,7 @@ class CsvMap
     end
   
     def status_map
-      [:lead_status, :contact_status]
+      [:lead_status, :contact_status, :client_status]
     end
   
     def referred_by_map

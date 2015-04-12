@@ -21,10 +21,10 @@
 </p>
 <% end %>
 
-<table class='table table-bordered table-striped' style='margin-top: 10px;'>
+<table class='table table-bordered table-striped table-condensed' style='margin-top: 10px;font-size:11px'>
   <thead>
     <tr>
-      <th>Status</th>
+      <th>Entry Point</th>
       <th>name</th>
       <th>Email</th>
       <th>Kind</th>
@@ -32,7 +32,7 @@
       <th>Category</th>
       <th>Company</th>
       <th>Rating</th>
-      <th>Access</th>
+      <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -40,7 +40,7 @@
   <tbody>
     <% @leads.each do |lead| %>
       <tr>
-        <td><%= lead.status %></td>
+        <td><%= lead.entry_point %></td>
         <td><%= lead.first_name %> <%= lead.last_name %></td>
         <td><%= lead.email %></td>
         <td><%= lead.kind %></td>
@@ -48,10 +48,10 @@
         <td><%= lead.category %></td>
         <td><%= lead.company %></td>
         <td><%= lead.rating %></td>
-        <td><%= lead.access %></td>
+        <td><%= lead.status %></td>
         <td><%= link_to 'Show', admin_lead_path(lead) %></td>
-        <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
-        <td><%= link_to 'Destroy', lead, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_admin_lead_path(lead) %></td>
+        <td><%= link_to 'Destroy', admin_lead_path(lead.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

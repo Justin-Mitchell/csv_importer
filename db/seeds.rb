@@ -38,7 +38,7 @@ u.save!
 end
 
 # Example Leads Associated to First User
-(1..50).each do |i|
+(1..3).each do |i|
   l = Lead.new(
          first_name: FFaker::Name.first_name,
          last_name: FFaker::Name.last_name,

@@ -58,7 +58,7 @@ group :development, :test do
   gem 'ffaker'
   
   # Figaro: https://github.com/laserlemon/figaro
-  gem 'figaro', '1.1.0'
+  # gem 'figaro', '1.1.0'
 
   # Spring: https://github.com/rails/spring
   gem 'spring', '1.3.3'
