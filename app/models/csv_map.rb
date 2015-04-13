@@ -24,8 +24,30 @@ class CsvMap
     def date(record, possibles)
       colname = record.keys & possibles
       value = record[colname.first]
-      if value
-        value.to_date
+      normalize_date_string(value)
+    end
+    
+    def normalize_date_string(value)
+      if value 
+        if value.size == 8
+          if value.include?('/')
+            Date.strptime(value, "%m/%d/%y")
+          elsif value.include?('-')
+            Date.strptime(value, "%m-%d-%y")
+          else
+            value.to_date
+          end
+        elsif value.size == 10
+          if value.include?('/')
+            Date.strptime(value, "%m/%d/%Y")
+          elsif value.include?('-')
+            Date.strptime(value, "%m-%d-%Y")
+          else
+            value.to_date
+          end
+        else
+          value.to_date
+        end
       else
         nil
       end
@@ -70,11 +92,11 @@ class CsvMap
     end
   
     def city_map
-      [:city, :home_city, :address_1__city]
+      [:city, :city_1, :home_city, :address_1__city]
     end
   
     def state_map
-      [:state, :home_state]
+      [:state, :state_1, :home_state]
     end
   
     def zipcode_map
@@ -94,7 +116,7 @@ class CsvMap
     end
     
     def title_map
-      [:title, :job_title, :position, :occupation, :profession]
+      [:title, :job_title, :position, :occupation, :profession, :primary_title]
     end
     
     def department_map

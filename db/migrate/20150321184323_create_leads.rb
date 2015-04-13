@@ -36,6 +36,7 @@ class CreateLeads < ActiveRecord::Migration
       t.string :access
       t.text   :comments
       t.integer :user_id
+      t.boolean :flagged, :default => false
 
       t.timestamps null: false
     end

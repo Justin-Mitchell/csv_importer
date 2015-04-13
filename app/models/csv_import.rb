@@ -7,7 +7,7 @@ class CsvImport < ActiveRecord::Base
   has_many :import_errors
 
   # Validations
-  after_create :process
+  after_create :fork
   
   # ClassMethods
   class << self
@@ -43,10 +43,6 @@ class CsvImport < ActiveRecord::Base
   # Instance Methods
   def load_csv_file_data
     SmarterCSV.process(self.csv.file.path, key_mapping: true) 
-  rescue CSV::MalformedCSVError
-    Rails.logger.error { "Error while loading csv file for: #{self.csv.file.original_filename}, #{e.message} #{e.backtrace.join("\n")}" }
-    flash[:error] = "The uploaded file, #{self.csv.file.original_filename}, was malformed or not in CSV format." 
-    return false
   end
   
   def set_total_records_count(size)
@@ -76,7 +72,22 @@ class CsvImport < ActiveRecord::Base
     end
   end
   
-  def process
+  def fork
+    if self.source.include?('other')
+      self.manual_process
+    else
+      self.automated_process
+    end
+  end
+  
+  def manual_process
+    @data = load_csv_file_data
+    raise
+    set_total_records_count(@data.size)
+    raise
+  end
+  
+  def automated_process
     @data = load_csv_file_data
     set_total_records_count(@data.size)
     @data.each do |row|
@@ -84,7 +95,10 @@ class CsvImport < ActiveRecord::Base
       lead = Lead.find_by(:email => lead_hash[:email], :first_name => lead_hash[:first_name], :last_name => lead_hash[:last_name])
       if lead
         lead.update_attributes(lead_hash)
-        self.updated_records_count += 1
+        if lead.flagged
+          self.updated_records_count += 1
+          lead.update_attribute(:flagged, false)
+        end
       else
         lead = user.leads.build(lead_hash)
         if lead.valid?

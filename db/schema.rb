@@ -93,8 +93,9 @@ ActiveRecord::Schema.define(version: 20150329172002) do
     t.string   "access"
     t.text     "comments"
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.boolean  "flagged",        default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "posts", force: :cascade do |t|

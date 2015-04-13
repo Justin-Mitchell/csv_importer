@@ -6,8 +6,11 @@ class Lead < ActiveRecord::Base
   belongs_to :user
     
   # Validations
-  validates_uniqueness_of :email, :scope => :user_id, :allow_blank => true
+  validates_uniqueness_of :email, :scope => :user_id, :allow_blank => true, :on => :create
   validate :contactable
+  
+  # Callbacks
+  after_validation :has_changed?, :on => :update
     
   # Pagination
   paginates_per 50
@@ -122,6 +125,10 @@ class Lead < ActiveRecord::Base
   end
   
   # Instance Methods
+  def has_changed?
+    self.flagged = self.changed?
+  end
+  
   def name
     "#{first_name} #{last_name}"
   end
