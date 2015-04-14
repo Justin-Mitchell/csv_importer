@@ -15,6 +15,16 @@ CsvImporter::Application.routes.draw do
   get "posts/:id", to: "pages#show_post", as: "post"
   
   devise_for :users
+  
+  namespace :api, path: '/', constraints: { subdomain: 'api' } do
+    resources :leads
+  end
+  
+  # constraints subdomain: 'api' do
+  #   namespace :api, path: '/' do
+  #     resources :leads, only: [:index, :show]
+  #   end
+  # end
 
   namespace :admin do
     root "base#index"

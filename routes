@@ -18,6 +18,8 @@
        user_confirmation POST   /users/confirmation(.:format)            devise/confirmations#create
    new_user_confirmation GET    /users/confirmation/new(.:format)        devise/confirmations#new
                          GET    /users/confirmation(.:format)            devise/confirmations#show
+               api_leads GET    /leads(.:format)                         api/leads#index {:subdomain=>"api"}
+                api_lead GET    /leads/:id(.:format)                     api/leads#show {:subdomain=>"api"}
               admin_root GET    /admin(.:format)                         admin/base#index
              admin_users GET    /admin/users(.:format)                   admin/users#index
                          POST   /admin/users(.:format)                   admin/users#create
