@@ -16,7 +16,7 @@ class GoogleCsv
     @params[:type]
   end
   
-  def self.fields
+  def self.field_names
     # Yomi:  Phonetic equivalent for Japanese Kanji symbol.
     [
       'Name', 'Given Name', 'Additional Name', 'Family Name', 'Yomi Name', 
@@ -37,8 +37,8 @@ class GoogleCsv
     ]
   end
   
-  def fields
-    Google.fields
+  def field_names
+    Google.field_names
   end
   
   def build_hash

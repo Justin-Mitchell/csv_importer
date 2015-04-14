@@ -1,6 +1,6 @@
 class OutlookCsv
   
-  def self.fields
+  def self.field_names
     [
       "Title","First Name","Middle Name","Last Name","Suffix",
       "Company","Department","Job Title","Business Street",
@@ -29,16 +29,20 @@ class OutlookCsv
     ]
   end
   
+  def field_names
+    self.field_names
+  end
+  
   def poly_lookup(type, value)
     result = []
-    ('', '2_', '3_').map {|i| "#{type}_#{i}type".to_sym}.each do |key|
-      if data[key] && data[key].gsub(/\*/, '').strip.downcase == value.downcase
-        digit = key.to_s.gsub(/\D/, '')
-        if digit then digit + "_" end
-        value_key = ("#{type.downcase}_" + digit + 'address').to_sym
-        result << data[value_key]
-      end
-    end
+    #('', '2_', '3_').map {|i| "#{type}_#{i}type".to_sym}.each do |key|
+    #  if data[key] && data[key].gsub(/\*/, '').strip.downcase == value.downcase
+    #    digit = key.to_s.gsub(/\D/, '')
+    #    if digit then digit + "_" end
+    #    value_key = ("#{type.downcase}_" + digit + 'address').to_sym
+    #    result << data[value_key]
+    #  end
+    #end
     result.first
   end
   

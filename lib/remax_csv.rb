@@ -1,6 +1,6 @@
 class RemaxCsv
   
-  def self.fields
+  def self.field_names
     [
       'Client ID', 'First Name', 'Last Name', 'E-mail Address', 'Password', 
       'Classification', 'Home Street', 'Home City', 'Home State', 
@@ -16,8 +16,8 @@ class RemaxCsv
     ]
   end
   
-  def fields
-    self.fields
+  def field_names
+    self.field_names
   end
   
   def self.build_hash(record, type)

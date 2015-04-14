@@ -13,6 +13,18 @@ class FusionCsv
        ] 
     end
     
+    def self.uniq_headers
+      # 12 Fields
+      # Minimum Match Should Be
+      # 
+      [
+        'First Name', 'Last Name', 'Home Phone', 'Primary Email Working', 
+        'Registered From Agent Site', 'Moving From', 'Looking In', 
+        'Has Agent', 'Requested Pre-Approval', 'Has Mortgage Lender', 
+        'Has Listing Alerts', 'Total Properties Viewed'
+      ]
+    end
+    
     def self.build_hash(record, type)
        address_line_1 = "#{CsvMap.field(record, CsvMap.address1_map)}"
        {

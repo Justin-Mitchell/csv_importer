@@ -4,12 +4,15 @@ class Admin::LeadsController < ApplicationController
 
   # GET /leads
   # GET /leads.json
+  # GET /leads.xls
+  # GET /leads.csv
   def index
     @leads = Lead.search_and_order(params[:search], params[:page], params[:format])
     respond_to do |format|
       format.html
       format.json { render json: @leads.to_json }
       format.csv  { render text: @leads.to_csv }
+      format.xml  { render  xml: @leads }
       format.xls  { render  xls: @leads }
     end
   end
@@ -17,6 +20,11 @@ class Admin::LeadsController < ApplicationController
   # GET /leads/1
   # GET /leads/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @lead.to_json }
+      format.xml  { render  xml: @lead }
+    end
   end
 
   # GET /leads/new

@@ -6,8 +6,10 @@ class CsvImport < ActiveRecord::Base
   belongs_to :user
   has_many :import_errors
 
-  # Validations
-  after_create :fork
+  # Callbacks
+  before_validation :validate_file_is_processable
+  after_validation  :set_csv_source
+  after_create      :choose_processing_stratigy
   
   # ClassMethods
   class << self
@@ -38,9 +40,79 @@ class CsvImport < ActiveRecord::Base
         ['Mixed', 'mixed']
       ]
     end
+    
+    def matchers
+      [
+        "name",
+        "address",
+        "email",
+        "phone",
+        "status",
+        "source"
+      ]
+    end
   end
   
   # Instance Methods
+  def choose_processing_stratigy
+    raise self.source
+    if self.source.include?('other') then self.manual_process else self.automated_process end
+  end
+  
+  def set_csv_source
+    source = get_csv_source_from_header
+    self.source = source
+  end
+  
+  def get_csv_source_from_header
+    row = fetch_header_row
+    results = {}
+    results[:fusion] = (row & FusionCsv.field_names).size
+    results[:top_producer] = (row & TopProducerCsv.field_names).size
+    results[:google] = (row & GoogleCsv.field_names).size
+    results[:yahoo] = (row & YahooCsv.field_names).size
+    results[:remax] = (row & RemaxCsv.field_names).size
+    results[:outlook] = (row & OutlookCsv.field_names).size
+    results[:market_leader] = (row & MarketLeaderCsv.field_names).size
+    if results.values.uniq.sort.reverse[0] == 0
+      'other'
+    else
+      results.sort_by {|_key, value| value}.reverse.first[0].to_s
+    end
+  end
+  
+  def validate_file_is_processable
+    row = fetch_header_row
+    if row && is_header_row?(row)
+      true
+    else
+      self.source = 'Malformed CSV'
+      raise CSV::MalformedCSVError
+    end
+  end
+  
+  def is_header_row?(row)
+    headers = row.compact.map(&:downcase)
+    @results = []
+    headers.each do |col_name|
+      CsvImport.matchers.each do |match|
+        if col_name.include?(match)
+          @results << col_name
+        end
+      end
+    end
+    if @results.size >= 3
+      true
+    else
+      false
+    end
+  end
+  
+  def fetch_header_row
+    temp = CSV.read(self.csv.file.path)
+    temp.first
+  end
+  
   def load_csv_file_data
     SmarterCSV.process(self.csv.file.path, key_mapping: true) 
   end
@@ -68,25 +140,16 @@ class CsvImport < ActiveRecord::Base
       obj = GoogleCsv.new(record, type)
       obj.build_hash
     when "other"
-      raise
+      OtherCsv.build_hash(record, type)
     else
       raise
-    end
-  end
-  
-  def fork
-    if self.source.include?('other')
-      self.manual_process
-    else
-      self.automated_process
     end
   end
   
   def manual_process
-    @data = load_csv_file_data
-    raise
+    @data = load_csv_file_with_empty_values
+    
     set_total_records_count(@data.size)
-    raise
   end
   
   def automated_process

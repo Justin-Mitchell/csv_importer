@@ -30,10 +30,10 @@ class Admin::CsvImportsController < ApplicationController
     @csv_import.is_temp = false
     
     respond_to do |format|
-      if !@csv_import.source.include?('other') && @csv_import.save
+      if @csv_import.save && !@csv_import.source.include?('other')
         format.html { redirect_to admin_csv_import_path(@csv_import), notice: 'Csv import was successfully created.' }
         format.json { render :show, status: :created, location: @csv_import }
-      elsif @csv_import.source.include?('other') && @csv_import.save
+      elsif @csv_import.save && @csv_import.source.include?('other')
         format.html { redirect_to mapping_admin_csv_import_path(@csv_import), notice: 'Csv ready for header mapping.' }
         format.json { render :mapping, status: :ok, location: @csv_import }
       else

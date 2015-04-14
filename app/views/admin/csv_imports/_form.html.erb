@@ -10,15 +10,7 @@
       </ul>
     </div>
   <% end %>
-  <div class='row'>
-    <div class='form-group'>
-      <label for="source" class='col-sm-2 control-label'>Source File Type</label>
-      <div class='col-sm-6'>
-        <%= f.select(:source, options_for_select(CsvImport.source_options_for_select), {}, { class: 'form-control' }) %>
-      </div>
-    </div>
-  </div>
-
+  
   <div class='row'>
     <div class='form-group'>
       <label for="lead_type" class='col-sm-2 control-label'>What Type Of Leads Are These?</label>

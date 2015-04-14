@@ -48,18 +48,6 @@ class Lead < ActiveRecord::Base
         order(last_name: :desc, email: :asc).page page_number
       end
     end
-      
-    def import(file)
-      SmarterCSV.process(file.path, key_mapping: true) do |row|
-        lead_hash = TopProducer.build_hash(row[0])
-        lead = Lead.where(:email => lead_hash[:email])
-        if lead.size == 1
-          lead.first.update_attributes(lead_hash)
-        else
-          Lead.create!(lead_hash)
-        end
-      end
-    end
     
     # Options For Select Fields
     def field_options
