@@ -4,7 +4,7 @@
     <h3>Leads Database</h3>
   </div>
   <div class='col-md-5 text-right' style='top:25px;'>
-    <%= link_to 'Create Lead', new_admin_lead_path %> | <%= link_to 'Import Leads via CSV File', '#', onclick: "$('#file-uploader').toggle()" %> | Export: <%= link_to("CSV", admin_leads_path(format: "csv")) %> | <%= link_to "Excel", admin_leads_path(format: 'xls')%>
+    <%= link_to 'Create Lead', new_admin_lead_path %> | <%= link_to 'Import Leads via CSV File', '#', onclick: "$('#file-uploader').toggle()" %> | Export: <%= link_to("CSV", admin_leads_path(format: "csv", search: params[:search])) %> | <%= link_to "Excel", admin_leads_path(format: 'xls', search: params[:search])%>
   </div>
 </div>
 

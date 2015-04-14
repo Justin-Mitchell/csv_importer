@@ -2,7 +2,7 @@
 # config/initializers/inflections.rb
 module API
   class LeadsController < ApplicationController
-    before_action :authenticate
+    #before_action :authenticate
     
     # GET /leads
     def index

@@ -25,19 +25,25 @@ class Lead < ActiveRecord::Base
   class << self
     
     def to_csv(options = {})
-      CSV.generate do |csv|
-        csv << column_names
-        all.each do |product|
-          csv << product.attributes.values_at(*column_names)
-        end
-      end
+     CSV.generate do |csv|
+       csv << column_names
+       all.each do |lead|
+         csv << lead.attributes.values_at(*column_names)
+       end
+     end
     end
       
-    def search_and_order(search, page_number)
-      if search
+    def search_and_order(search, page_number, format = nil)
+      if format.nil? && search
         where("email LIKE ?", "%#{search.downcase}%").order(
         last_name: :desc, email: :asc
         ).page page_number
+      elsif !format.nil? && search
+        where("email LIKE ?", "%#{search.downcase}%").order(
+        last_name: :desc, email: :asc
+        )
+      elsif !format.nil?
+        order(last_name: :desc, email: :asc)
       else
         order(last_name: :desc, email: :asc).page page_number
       end
