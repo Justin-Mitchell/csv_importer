@@ -26,8 +26,6 @@ class Admin::CsvImportsController < ApplicationController
   # POST /csv_imports.json
   def create
     @csv_import = current_user.csv_imports.build(csv_import_params)
-    #data = CSV.parse(open(params[:csv_import][:csv].path).read)
-    #@csv_import.total_records = data.size - 1
     @csv_import.name = "#{csv_import_params[:source]}-#{csv_import_params[:lead_type]}-#{Time.now.strftime("%B-%d-%Y").downcase}"
     @csv_import.is_temp = false
     
@@ -43,6 +41,10 @@ class Admin::CsvImportsController < ApplicationController
         format.json { render json: @csv_import.errors, status: :unprocessable_entity }
       end
     end
+  rescue CSV::MalformedCSVError => e
+    Rails.logger.error { "Error while loading csv file for: #{@csv_import.csv.file.original_filename}, #{e.message} #{e.backtrace.join("\n")}" }
+    flash[:error] = "#{@csv_import.csv.file.original_filename} appears to be malformed or not in CSV format. <br/>Ensure every column has a column name and those column names match our required names".html_safe
+    render :new
   end
 
   # PATCH/PUT /csv_imports/1

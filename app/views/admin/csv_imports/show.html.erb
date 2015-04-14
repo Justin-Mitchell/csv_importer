@@ -33,7 +33,7 @@
         <%= @csv_import.new_records_count %>
       </p>
       <p>
-        <strong>Updated Records:</strong>
+        <strong>Updated Existing Records:</strong>
         <%= @csv_import.updated_records_count %>
       </p>
     <% else %>
@@ -42,7 +42,12 @@
         Processing...
       </p>
     <% end %>
-
+    <% if @csv_import.import_errors.any? %>
+      <p>
+        <strong>Errors:</strong>
+        <%= @csv_import.import_errors.size %>
+      </p>
+    <% end %>
     <p>
       <strong>Csv:</strong>
       <% if @csv_import.csv %>
