@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :reject_locked!, if: :devise_controller?
+  after_filter  :track_visit
 
 
   # Devise permitted params
@@ -50,5 +51,9 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :require_admin!
+  
+  def track_visit
+    ahoy.track_visit
+  end
 
 end

@@ -42,6 +42,8 @@ gem 'fog'
 gem 'carrierwave'
 gem 'carrierwave_direct'
 
+# Website Analytics
+gem 'ahoy_matey'
 
 group :development, :test do
   gem 'dotenv-rails'

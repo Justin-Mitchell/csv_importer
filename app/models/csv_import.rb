@@ -55,7 +55,6 @@ class CsvImport < ActiveRecord::Base
   
   # Instance Methods
   def choose_processing_stratigy
-    raise self.source
     if self.source.include?('other') then self.manual_process else self.automated_process end
   end
   
