@@ -7,9 +7,9 @@ class CsvImport < ActiveRecord::Base
   has_many :import_errors
 
   # Callbacks
-  before_validation :validate_file_is_processable
-  after_validation  :set_csv_source
-  after_create      :choose_processing_stratigy
+  # before_validation :validate_file_is_processable
+  # after_validation  :set_csv_source
+  # after_save      :start_background_processing
   
   # ClassMethods
   class << self
@@ -54,8 +54,10 @@ class CsvImport < ActiveRecord::Base
   end
   
   # Instance Methods
-  def choose_processing_stratigy
-    if self.source.include?('other') then self.manual_process else self.automated_process end
+  def start_background_processing
+    # if self.source.include?('other') then self.manual_process else self.automated_process end
+    ImportWorker.perform_async(self.id)
+    # self.automated_process
   end
   
   def set_csv_source
@@ -113,6 +115,7 @@ class CsvImport < ActiveRecord::Base
   end
   
   def load_csv_file_data
+    raise
     SmarterCSV.process(self.csv.file.path, key_mapping: true) 
   end
   
@@ -123,8 +126,8 @@ class CsvImport < ActiveRecord::Base
     nil
   end
   
-  def build_record(record, type)
-    case self.source
+  def build_record(record, type, source)
+    case source
     when "top_producer"
       TopProducerCsv.build_hash(record, type)
     when "fusion"
@@ -147,7 +150,6 @@ class CsvImport < ActiveRecord::Base
   
   def manual_process
     @data = load_csv_file_with_empty_values
-    
     set_total_records_count(@data.size)
   end
   

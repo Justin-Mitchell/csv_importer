@@ -28,12 +28,16 @@ class Admin::CsvImportsController < ApplicationController
     @csv_import = current_user.csv_imports.build(csv_import_params)
     @csv_import.name = "#{csv_import_params[:source]}-#{csv_import_params[:lead_type]}-#{Time.now.strftime("%B-%d-%Y").downcase}"
     @csv_import.is_temp = false
+    @csv_import.validate_file_is_processable
+    @csv_import.set_csv_source
     
     respond_to do |format|
       if @csv_import.save && !@csv_import.source.include?('other')
+        @csv_import.start_background_processing
         format.html { redirect_to admin_csv_import_path(@csv_import), notice: 'Csv import was successfully created.' }
         format.json { render :show, status: :created, location: @csv_import }
       elsif @csv_import.save && @csv_import.source.include?('other')
+        @csv_import.start_background_processing
         format.html { redirect_to mapping_admin_csv_import_path(@csv_import), notice: 'Csv ready for header mapping.' }
         format.json { render :mapping, status: :ok, location: @csv_import }
       else
